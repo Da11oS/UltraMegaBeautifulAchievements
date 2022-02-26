@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using VueCliMiddleware;
 
-namespace UltraMegaBeautifulAchievements
+namespace Achievements.UI
 {
     public class Startup
     {
