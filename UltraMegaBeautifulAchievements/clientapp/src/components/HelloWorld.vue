@@ -1,5 +1,10 @@
 <template>
   <v-container>
+    <v-row>
+      <v-col class="text-amber-accent-4">
+        title
+      </v-col>
+    </v-row>
     <v-row class="text-center">
       <v-col cols="12">
         <v-img
@@ -92,12 +97,17 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
   name: 'HelloWorld',
-
-  data () {
+  setup() {
+    const title = ref<string>();
+    return {
+      title,
+    }
+  },
+  data() {
     return {
       ecosystem: [
         {
