@@ -101,13 +101,13 @@ import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
   name: 'HelloWorld',
-  setup() {
-    const title = ref<string>();
+  setup () {
+    const title = ref<string>()
     return {
-      title,
+      title
     }
   },
-  data() {
+  data () {
     return {
       ecosystem: [
         {
