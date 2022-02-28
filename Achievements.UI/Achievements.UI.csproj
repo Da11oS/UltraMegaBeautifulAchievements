@@ -10,4 +10,8 @@
     <PackageReference Include="VueCliMiddleware" Version="6.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Achievements.Database\Achievements.Database.csproj" />
+  </ItemGroup>
+
 </Project>
