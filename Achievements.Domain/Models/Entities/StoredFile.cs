@@ -1,13 +1,12 @@
 ﻿using System;
 
-namespace Achievements.Domain.Models
+namespace Achievements.Domain.Models.Entities
 {
     /// <summary>
     /// Модель сохраненного файла
     /// </summary>
-    public class StoredFile
+    public class StoredFile : BaseEntity
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public Guid Identifier { get; set; }
         public string Directory { get; set; }

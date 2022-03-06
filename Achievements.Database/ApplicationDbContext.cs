@@ -1,4 +1,5 @@
 ﻿using Achievements.Domain.Models;
+using Achievements.Domain.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Achievements.Database

@@ -1,13 +1,12 @@
 ﻿using System;
 
-namespace Achievements.Domain.Models
+namespace Achievements.Domain.Models.Entities
 {
     /// <summary>
     /// Модель оцененной работы
     /// </summary>
-    public class AchievementScore
+    public class AchievementScore : BaseEntity
     {
-        public int Id { get; set; }
         public StoredFile StoredFile { get; set; }
         public int ExpertId { get; set; } // позже - модель юзера / админа
         public DateTime Timestamp { get; set; }
