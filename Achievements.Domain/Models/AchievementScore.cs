@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Achievements.Domain.Models.Entities
+namespace Achievements.Domain.Models
 {
     /// <summary>
     /// Модель оцененной работы

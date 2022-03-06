@@ -34,7 +34,7 @@ namespace Achievements.UI
         {
 
             _ = CommandLine.Arguments.TryGetOptions(System.Environment.GetCommandLineArgs(), false, out string mode, out ushort port, out bool https);
-
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

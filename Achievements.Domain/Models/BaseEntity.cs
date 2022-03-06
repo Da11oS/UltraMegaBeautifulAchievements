@@ -1,4 +1,4 @@
-﻿namespace Achievements.Domain.Models.Entities
+﻿namespace Achievements.Domain.Models
 {
     public class BaseEntity
     {
