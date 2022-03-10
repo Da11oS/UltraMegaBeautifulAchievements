@@ -3,13 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Achievements.UI", "Achievements.UI\Achievements.UI.csproj", "{3DBF40DB-F6E9-4253-95B8-FF437579030D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Achievements.WebApplication", "Achievements.WebApplication\Achievements.WebApplication.csproj", "{3DBF40DB-F6E9-4253-95B8-FF437579030D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Achievements.Database", "Achievements.Database\Achievements.Database.csproj", "{F1E23E58-6869-4D60-9F11-71A4F06F2CD1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Achievements.Domain", "Achievements.Domain\Achievements.Domain.csproj", "{3C9BAF14-C5D8-4852-A0AB-87BAD97FAC2D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Achievements.Application", "Achievements.Application\Achievements.Application.csproj", "{92B6ABC0-2B4D-4C91-B4A7-000C811A121B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +27,6 @@ Global
 		{3C9BAF14-C5D8-4852-A0AB-87BAD97FAC2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C9BAF14-C5D8-4852-A0AB-87BAD97FAC2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C9BAF14-C5D8-4852-A0AB-87BAD97FAC2D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{92B6ABC0-2B4D-4C91-B4A7-000C811A121B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{92B6ABC0-2B4D-4C91-B4A7-000C811A121B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{92B6ABC0-2B4D-4C91-B4A7-000C811A121B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{92B6ABC0-2B4D-4C91-B4A7-000C811A121B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

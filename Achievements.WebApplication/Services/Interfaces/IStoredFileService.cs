@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
-namespace Achievements.UI.Services
+namespace Achievements.WebApplication.Services.Interfaces
 {
     public interface IStoredFileService
     {

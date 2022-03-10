@@ -13,6 +13,7 @@ namespace Achievements.Database
         
         public DbSet<StoredFile> StoredFiles { get; set; }
         public DbSet<AchievementScore> AchievementScores { get; set; }
+        public DbSet<User> Users { get; set; }
 
 
         // Уставновка ef tool'а
@@ -20,7 +21,7 @@ namespace Achievements.Database
         
         // Создание миграций
         // cmd> cd ./Achievements.Database
-        // cmd> dotnet ef --startup-project ../Achievements.UI migrations add init
-        // cmd> dotnet ef --startup-project ../Achievements.UI database update
+        // cmd> dotnet ef --startup-project ../Achievements.WebApplication migrations add init
+        // cmd> dotnet ef --startup-project ../Achievements.WebApplication database update
     }
 }

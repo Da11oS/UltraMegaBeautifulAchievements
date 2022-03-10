@@ -3,9 +3,8 @@ using System.Threading.Tasks;
 using Achievements.Database;
 using Achievements.Domain.Models;
 using Microsoft.EntityFrameworkCore;
-using Sailora.Identity.Services;
 
-namespace Achievements.Application.Repositories
+namespace Achievements.WebApplication.Repositories
 {
     public class BaseRepository<T>: IEfRepository<T> where T: BaseEntity
     {
@@ -16,7 +15,6 @@ namespace Achievements.Application.Repositories
             _context = context;
         }
 
-
         public IEnumerable<T> GetAll()
         {
             return _context.Set<T>();
@@ -24,7 +22,6 @@ namespace Achievements.Application.Repositories
 
         public async Task<T> GetById(int id)
         {
-            //todo: need to add logger
             return await _context.Set<T>().FirstOrDefaultAsync(x => x.Id == id);
         }
 

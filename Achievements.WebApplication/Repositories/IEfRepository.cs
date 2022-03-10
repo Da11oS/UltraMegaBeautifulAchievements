@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Achievements.Domain.Models;
 
-namespace Sailora.Identity.Services
+namespace Achievements.WebApplication.Repositories
 {
     /// <summary>
     /// Репозиторий

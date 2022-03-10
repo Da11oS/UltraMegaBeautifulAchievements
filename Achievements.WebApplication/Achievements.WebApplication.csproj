@@ -2,16 +2,17 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>Achievements.UI</RootNamespace>
+    <RootNamespace>Achievements.WebApplication</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="5.0.1" />
     <PackageReference Include="VueCliMiddleware" Version="6.0.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.8.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Achievements.Application\Achievements.Application.csproj" />
+    <ProjectReference Include="..\Achievements.Database\Achievements.Database.csproj" />
   </ItemGroup>
 
 </Project>

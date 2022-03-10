@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using VueCliMiddleware;
 
-namespace Achievements.UI
+namespace Achievements.WebApplication
 {
     public class Startup
     {
@@ -33,7 +33,7 @@ namespace Achievements.UI
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
-            _ = CommandLine.Arguments.TryGetOptions(System.Environment.GetCommandLineArgs(), false, out string mode, out ushort port, out bool https);
+            _ = Arguments.TryGetOptions(System.Environment.GetCommandLineArgs(), false, out string mode, out ushort port, out bool https);
             
             if (env.IsDevelopment())
             {
