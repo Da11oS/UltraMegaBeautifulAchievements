@@ -1,4 +1,6 @@
-﻿namespace Achievements.Domain.Models
+﻿using System.Text.Json.Serialization;
+
+namespace Achievements.Domain.Models
 {
     /// <summary>
     /// Модель пользователя
@@ -10,6 +12,8 @@
         public string Patronymic { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }
+        
+        [JsonIgnore]
         public string Password { get; set; }
     }
 }

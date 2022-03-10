@@ -28,7 +28,7 @@ namespace Achievements.WebApplication.Repositories
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public Task<long> Create(T entity);
+        public Task<int> Create(T entity);
         
         /// <summary>
         /// Удалить

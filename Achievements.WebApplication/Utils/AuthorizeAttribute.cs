@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Achievements.WebApplication.Utils
 {
+    /// <summary>
+    /// Атрибут авторизации
+    /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class AuthorizeAttribute: Attribute, IAuthorizationFilter
     {

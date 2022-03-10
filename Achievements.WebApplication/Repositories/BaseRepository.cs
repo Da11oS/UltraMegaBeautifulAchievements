@@ -25,7 +25,7 @@ namespace Achievements.WebApplication.Repositories
             return await _context.Set<T>().FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<long> Create(T entity)
+        public async Task<int> Create(T entity)
         {
             var result = await _context.Set<T>().AddAsync(entity);
             await _context.SaveChangesAsync();
