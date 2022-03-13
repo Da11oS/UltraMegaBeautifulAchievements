@@ -6,7 +6,7 @@ namespace Achievements.WebApplication.Controllers
     [Route("[controller]/")]
     public class AchievementScoreController : ControllerBase
     {
-
+        
     }
 
 }

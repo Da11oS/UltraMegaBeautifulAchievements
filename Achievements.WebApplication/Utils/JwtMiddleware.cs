@@ -54,7 +54,7 @@ namespace Achievements.WebApplication.Utils
             }
             catch (Exception ex)
             {
-                // handle ex.Message
+                Console.WriteLine(ex.Message);
             }
         }
     }

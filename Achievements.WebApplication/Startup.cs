@@ -1,4 +1,8 @@
 using Achievements.Database;
+using Achievements.WebApplication.Repositories;
+using Achievements.WebApplication.Services;
+using Achievements.WebApplication.Services.Interfaces;
+using Achievements.WebApplication.Utils;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +27,9 @@ namespace Achievements.WebApplication
             services.AddControllersWithViews();
 
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration["DefaultConnection"]));
+            
+            services.AddScoped(typeof(IEfRepository<>), typeof(BaseRepository<>));
+            services.AddScoped<IUserService, UserService>();
             
             services.AddSpaStaticFiles(configuration =>
             {
@@ -55,6 +62,8 @@ namespace Achievements.WebApplication
 
             app.UseRouting();
 
+            app.UseMiddleware<JwtMiddleware>();
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
