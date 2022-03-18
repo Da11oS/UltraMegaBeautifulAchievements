@@ -18,10 +18,10 @@ namespace Achievements.WebApplication.Controllers
             _userService = userService;
         }
 
-        [HttpPost("authenticate")]
-        public IActionResult Authenticate(AuthenticateRequest model)
+        [HttpPost("Login")]
+        public IActionResult Login(LoginRequest model)
         {
-            var response = _userService.Authenticate(model);
+            var response = _userService.Login(model);
 
             if (response == null)
                 return BadRequest(new { message = "Username or password is incorrect" });
@@ -29,7 +29,7 @@ namespace Achievements.WebApplication.Controllers
             return Ok(response);
         }
 
-        [HttpPost("register")]
+        [HttpPost("Register")]
         public async Task<IActionResult> Register(User userModel)
         {
             var response = await _userService.Register(userModel);

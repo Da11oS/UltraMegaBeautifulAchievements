@@ -5,7 +5,7 @@ namespace Achievements.Domain.ViewModels
     /// <summary>
     /// Модель ответа аутентификации
     /// </summary>
-    public class AuthenticateResponse
+    public class LoginResponse
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
@@ -15,7 +15,7 @@ namespace Achievements.Domain.ViewModels
         public string Email { get; set; }
         public string Token { get; set; }
 
-        public AuthenticateResponse(User user, string token)
+        public LoginResponse(User user, string token)
         {
             Id = user.Id;
             FirstName = user.FirstName;

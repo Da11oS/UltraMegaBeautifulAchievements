@@ -5,7 +5,7 @@ namespace Achievements.Domain.ViewModels
     /// <summary>
     /// Модель запроса аутентификации
     /// </summary>
-    public class AuthenticateRequest
+    public class LoginRequest
     {
         [Required]
         public string Username { get; set; }

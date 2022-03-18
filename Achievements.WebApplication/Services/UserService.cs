@@ -6,7 +6,6 @@ using Achievements.Domain.ViewModels;
 using Achievements.WebApplication.Repositories;
 using Achievements.WebApplication.Services.Interfaces;
 using Achievements.WebApplication.Utils;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
 namespace Achievements.WebApplication.Services
@@ -22,7 +21,7 @@ namespace Achievements.WebApplication.Services
             _configuration = configuration;
         }
 
-        public AuthenticateResponse Authenticate(AuthenticateRequest model)
+        public LoginResponse Login(LoginRequest model)
         {
             var user = _userRepository
                 .GetAll()
@@ -33,14 +32,14 @@ namespace Achievements.WebApplication.Services
         
             var token = _configuration.GenerateJwtToken(user);
         
-            return new AuthenticateResponse(user, token);
+            return new LoginResponse(user, token);
         }
 
-        public async Task<AuthenticateResponse> Register([FromBody]User user)
+        public async Task<LoginResponse> Register(User user)
         {
             var addedUser = await _userRepository.Create(user);
         
-            var response = Authenticate(new AuthenticateRequest
+            var response = Login(new LoginRequest
             {
                 Username = user.Username,
                 Password = user.Password

@@ -7,8 +7,8 @@ namespace Achievements.WebApplication.Services.Interfaces
 {
     public interface IUserService
     {
-        AuthenticateResponse Authenticate(AuthenticateRequest model);
-        Task<AuthenticateResponse> Register(User user);
+        LoginResponse Login(LoginRequest model);
+        Task<LoginResponse> Register(User user);
         IEnumerable<User> GetAll();
         User GetById(int id);
     }
