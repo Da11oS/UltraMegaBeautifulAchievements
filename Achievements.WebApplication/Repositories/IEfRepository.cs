@@ -21,7 +21,7 @@ namespace Achievements.WebApplication.Repositories
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Task<T> GetById(int id);
+        public T GetById(int id);
         
         /// <summary>
         /// Создать

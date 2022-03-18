@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Achievements.Database;
 using Achievements.Domain.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace Achievements.WebApplication.Repositories
 {
@@ -20,9 +20,9 @@ namespace Achievements.WebApplication.Repositories
             return _context.Set<T>();
         }
 
-        public async Task<T> GetById(int id)
+        public T GetById(int id)
         {
-            return await _context.Set<T>().FirstOrDefaultAsync(x => x.Id == id);
+            return _context.Set<T>().FirstOrDefault(x => x.Id == id);
         }
 
         public async Task<int> Create(T entity)
@@ -34,7 +34,7 @@ namespace Achievements.WebApplication.Repositories
 
         public async Task Delete(int id)
         {
-            var result = await GetById(id);
+            var result = GetById(id);
             _context.Set<T>().Remove(result);
             await _context.SaveChangesAsync();
         }

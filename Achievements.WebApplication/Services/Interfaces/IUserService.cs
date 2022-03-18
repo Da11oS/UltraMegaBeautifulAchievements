@@ -10,6 +10,6 @@ namespace Achievements.WebApplication.Services.Interfaces
         AuthenticateResponse Authenticate(AuthenticateRequest model);
         Task<AuthenticateResponse> Register(User user);
         IEnumerable<User> GetAll();
-        Task<User> GetById(int id);
+        User GetById(int id);
     }
 }

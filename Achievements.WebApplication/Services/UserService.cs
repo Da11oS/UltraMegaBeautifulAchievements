@@ -54,10 +54,9 @@ namespace Achievements.WebApplication.Services
             return _userRepository.GetAll();
         }
 
-        public async Task<User> GetById(int id)
+        public User GetById(int id)
         {
-            // TODO: не кастится к User
-            return await _userRepository.GetById(id);
+            return _userRepository.GetById(id);
         }
     }
 }
