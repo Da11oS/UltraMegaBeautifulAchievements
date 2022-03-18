@@ -1,4 +1,5 @@
-﻿using Achievements.Domain.Models;
+﻿using Achievements.Domain.Enums;
+using Achievements.Domain.Models;
 
 namespace Achievements.Domain.ViewModels
 {
@@ -13,6 +14,7 @@ namespace Achievements.Domain.ViewModels
         public string Patronymic { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }
+        public UserRole Role { get; set; }
         public string Token { get; set; }
 
         public LoginResponse(User user, string token)
@@ -23,6 +25,7 @@ namespace Achievements.Domain.ViewModels
             Patronymic = user.Patronymic;
             Username = user.Username;
             Email = user.Email;
+            Role = user.Role;
             Token = token;
         }
     }
