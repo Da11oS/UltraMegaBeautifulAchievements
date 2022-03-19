@@ -30,6 +30,7 @@ namespace Achievements.WebApplication
             
             services.AddScoped(typeof(IEfRepository<>), typeof(BaseRepository<>));
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IStoredFileService, StoredFileService>();
             
             services.AddSpaStaticFiles(configuration =>
             {

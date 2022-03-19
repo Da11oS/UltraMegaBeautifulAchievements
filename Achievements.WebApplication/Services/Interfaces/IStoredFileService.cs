@@ -1,21 +1,14 @@
 ﻿using System.Threading.Tasks;
+using Achievements.Domain.Models;
 using Microsoft.AspNetCore.Http;
 
 namespace Achievements.WebApplication.Services.Interfaces
 {
     public interface IStoredFileService
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public Task StoreFile(IFormFile file);
+        public Task<bool> DoStoreFile(IFormFile file, User user);
         
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public Task GetFile();
+        public Task<StoredFile> GetFile();
         
         
     }
