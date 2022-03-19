@@ -11,16 +11,22 @@ namespace Achievements.WebApplication.Controllers
     public class FileController : ControllerBase
     {
         private readonly IStoredFileService _fileService;
+        private readonly IUserService _userService;
 
-        public FileController(IStoredFileService fileService)
+        public FileController(IStoredFileService fileService, IUserService userService)
         {
             _fileService = fileService;
+            _userService = userService;
         }
         
         [Authorize]
         [HttpPost("Load")]
-        public IActionResult Login(IFormFile file, User user)
+        public IActionResult Login(IFormFile file, int id)
         {
+            var user = _userService.GetById(id);
+
+            if (user == null) return BadRequest(new { message = "User not found" });
+            
             var response = _fileService.DoStoreFile(file, user);
 
             if (response == null)
