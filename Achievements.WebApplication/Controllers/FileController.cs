@@ -32,7 +32,7 @@ namespace Achievements.WebApplication.Controllers
             if (response == null)
                 return BadRequest(new { message = "Failed to load file" });
 
-            return Ok(response);
+            return Ok();
         }
     }
 }

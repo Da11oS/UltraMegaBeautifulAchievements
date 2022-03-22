@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Achievements.Domain.Models;
 using Achievements.WebApplication.Repositories;
@@ -44,13 +45,14 @@ namespace Achievements.WebApplication.Services
         private async Task StoreFileOnPhysicalSpace(IFormFile file, Guid fileIdentifier)
         {
             var size = file.Length;
+            var fileExtension = file.FileName.Split('.').Last();
 
             if (size is <= 0 or > 2097152) return;
             
             var filePath = Path.Combine(_configuration["StoredFilesPath"], 
-                fileIdentifier.ToString());
+                fileIdentifier.ToString()) + '.' + fileExtension;
 
-            await using var stream = File.Create(filePath);
+            await using var stream = new FileStream(filePath, FileMode.Create);
             await file.CopyToAsync(stream);
         }
 
