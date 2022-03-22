@@ -1,40 +1,34 @@
 <template>
-  <v-app id="inspire">
-    <v-content class="justify-center">
-      <v-container fluid fill-height>
-        <v-layout align-center justify-center>
-          <v-flex xs12 sm8 md4>
-            <v-card class="elevation-12">
-              <v-toolbar dark color="primary">
-                <v-toolbar-title>Login form</v-toolbar-title>
-              </v-toolbar>
-              <v-card-text>
-                <v-form @submit.prevent="loginRequest">
-                  <v-text-field v-model="username"
-                    prepend-icon="person"
-                    name="username"
-                    label="Username"
-                    type="text"
-                  ></v-text-field>
-                  <v-text-field v-model="password"
-                    id="password"
-                    prepend-icon="lock"
-                    name="password"
-                    label="Password"
-                    type="password"
-                  ></v-text-field>
-                </v-form>
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="primary" to="/">Login</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-flex>
-        </v-layout>
-      </v-container>
-    </v-content>
-  </v-app>
+<!--  <v-layout class="fill-height" >-->
+      <v-card class="elevation-12" width="600">
+        <v-toolbar dark color="primary">
+          <v-toolbar-title>Login form</v-toolbar-title>
+        </v-toolbar>
+        <v-card-text>
+          <v-form @submit.prevent="loginRequest">
+            <v-text-field v-model="username"
+              prepend-icon="person"
+              name="username"
+              label="Username"
+              type="text"
+            ></v-text-field>
+            <v-text-field v-model="password"
+              id="password"
+              prepend-icon="lock"
+              name="password"
+              label="Password"
+              type="password"
+            ></v-text-field>
+          </v-form>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <router-link to="/sign-up">Sign up</router-link>
+          <v-spacer></v-spacer>
+          <v-btn color="primary" to="/">Login</v-btn>
+        </v-card-actions>
+      </v-card>
+<!--  </v-layout>-->
 </template>
 
 <script lang='ts'>

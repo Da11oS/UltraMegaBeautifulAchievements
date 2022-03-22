@@ -1,5 +1,8 @@
 <template>
+  <v-container class="fill-height fill-width d-flex justify-center align-center"
+               max-width="1024px">
   <LoginForm />
+  </v-container>
 </template>
 
 <script lang="ts">
