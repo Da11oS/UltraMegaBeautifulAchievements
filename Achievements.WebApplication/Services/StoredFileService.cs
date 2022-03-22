@@ -24,7 +24,7 @@ namespace Achievements.WebApplication.Services
         {
             try
             {
-                var fileIdentifier = new Guid();
+                var fileIdentifier = Guid.NewGuid();
                 await StoreFileOnPhysicalSpace(file, fileIdentifier);
                 await AddStoredFile(fileIdentifier, user);
                 return true;

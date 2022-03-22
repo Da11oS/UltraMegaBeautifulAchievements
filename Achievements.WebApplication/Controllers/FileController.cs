@@ -21,7 +21,7 @@ namespace Achievements.WebApplication.Controllers
         
         [Authorize]
         [HttpPost("Load")]
-        public IActionResult Load(IFormFile file, int id)
+        public IActionResult Load(IFormFile file, [FromForm]int id)
         {
             var user = _userService.GetById(id);
 
