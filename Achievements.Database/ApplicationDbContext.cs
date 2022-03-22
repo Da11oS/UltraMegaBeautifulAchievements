@@ -15,6 +15,12 @@ namespace Achievements.Database
         public DbSet<AchievementScore> AchievementScores { get; set; }
         public DbSet<User> Users { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>()
+                .HasIndex(u => new { u.Username, u.Email })
+                .IsUnique();
+        }
 
         // Уставновка ef tool'а
         // cmd > dotnet tool install --global dotnet-ef
