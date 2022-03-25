@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <v-card class="elevation-12" width="600">
     <v-toolbar dark color="primary">
       <v-toolbar-title>Sign up form</v-toolbar-title>
@@ -41,7 +41,7 @@
           <v-list-item>
             <v-text-field
               label="Email"
-              v-model="model.mail"
+              v-model="model.email"
               :rules="emailRules"
               hide-details="auto"
             ></v-text-field>
@@ -59,9 +59,9 @@
       </v-form>
     </v-card-text>
     <v-card-actions>
-      <v-btn color="primary" @click="$router.back()">Back</v-btn>
+      <v-btn  @click="$router.back()">Back</v-btn>
       <v-spacer></v-spacer>
-      <v-btn @click="signUp">
+      <v-btn color="primary" @click="signUp">
         Sign Up
       </v-btn>
     </v-card-actions>

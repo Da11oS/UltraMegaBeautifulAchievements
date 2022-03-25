@@ -1,4 +1,4 @@
-﻿import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 
 enum StatusCode {
   Unauthorized = 401,
@@ -157,6 +157,6 @@ export interface User{
   lastName: string;
   patronymic:string;
   userName:string;
-  mail:string;
+  email:string;
   password:string;
 }

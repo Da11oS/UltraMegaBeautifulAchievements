@@ -1,6 +1,8 @@
-﻿<template>
-  <v-container class="fill-height fill-width d-flex justify-center" max-width="1024px">
-  <SignUp />
+<template>
+  <v-container class="pt-10">
+    <v-row  class="d-flex justify-center align-center">
+    <SignUp/>
+    </v-row>
   </v-container>
 </template>
 
