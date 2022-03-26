@@ -15,13 +15,13 @@ namespace Achievements.WebApplication
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+        
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
-        
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews()
@@ -36,7 +36,7 @@ namespace Achievements.WebApplication
             services.AddScoped(typeof(IEfRepository<>), typeof(BaseRepository<>));
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IStoredFileService, StoredFileService>();
-            services.AddScoped<IAchievementGroupsService, AchievementGroupService>();
+            services.AddScoped<IAchievementGroupsService, AchievementGroupsService>();
             
             #endregion
             

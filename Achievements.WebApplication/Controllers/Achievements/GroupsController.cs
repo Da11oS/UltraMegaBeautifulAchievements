@@ -11,25 +11,25 @@ namespace Achievements.WebApplication.Controllers.Achievements
     [Route("Achievements/[controller]")]
     public class GroupsController : ControllerBase
     {
-        private readonly AchievementGroupService _groupService;
+        private readonly AchievementGroupsService _groupsService;
 
-        public GroupsController(AchievementGroupService groupService)
+        public GroupsController(AchievementGroupsService groupsService)
         {
-            _groupService = groupService;
+            _groupsService = groupsService;
         }
         
         [Authorize]
         [HttpGet]
         public IEnumerable<AchievementGroup> GetGroups()
         {
-            return _groupService.GetGroups();
+            return _groupsService.GetGroups();
         }
         
         [Authorize]
         [HttpPost("Create")]
         public async Task<int> Create(AchievementGroup group)
         {
-            return await _groupService.CreateGroup(group);
+            return await _groupsService.CreateGroup(group);
         }
     }
 }

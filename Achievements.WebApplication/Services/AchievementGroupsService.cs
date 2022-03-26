@@ -7,14 +7,12 @@ using Microsoft.Extensions.Configuration;
 
 namespace Achievements.WebApplication.Services
 {
-    public class AchievementGroupService : IAchievementGroupsService
+    public class AchievementGroupsService : IAchievementGroupsService
     {
-        private readonly IConfiguration _configuration;
         private readonly IEfRepository<AchievementGroup> _groupRepository;
 
-        public AchievementGroupService(IConfiguration configuration, IEfRepository<AchievementGroup> groupRepository)
+        public AchievementGroupsService(IEfRepository<AchievementGroup> groupRepository)
         {
-            _configuration = configuration;
             _groupRepository = groupRepository;
         }
         
