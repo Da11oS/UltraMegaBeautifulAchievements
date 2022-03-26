@@ -23,9 +23,9 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <router-link to="/sign-up">Sign up</router-link>
+          <router-link to="/sign-up"> Go to sign up</router-link>
           <v-spacer></v-spacer>
-          <v-btn color="primary" to="/">Login</v-btn>
+          <v-btn color="primary" @click="loginRequest">Login</v-btn>
         </v-card-actions>
       </v-card>
 <!--  </v-layout>-->
@@ -50,7 +50,7 @@ export default defineComponent({
   },
   methods: {
     async loginRequest() {
-      const response = await axios.post("Login", {
+      const response = await axios.post("Users/Login", {
         username: this.username,
         password: this.password,
       });

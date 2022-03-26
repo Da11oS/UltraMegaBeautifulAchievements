@@ -13,6 +13,18 @@ const routes: Array<RouteRecordRaw> = [
     name: "sign-up",
     component: SignUpView,
   },
+  {
+    path: "/achichevements",
+    name: "achichevements",
+    component: SignUpView,
+    children: [
+      // {
+      //   path: "/create",
+      //   name: "editAchievements",
+      //   component: SignUpView,
+      // },
+    ],
+  },
 ];
 
 const router = createRouter({

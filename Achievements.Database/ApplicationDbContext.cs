@@ -1,4 +1,5 @@
 ﻿using Achievements.Domain.Models;
+using Achievements.Domain.Models.Achievements;
 using Microsoft.EntityFrameworkCore;
 
 namespace Achievements.Database
@@ -14,7 +15,8 @@ namespace Achievements.Database
         public DbSet<StoredFile> StoredFiles { get; set; }
         public DbSet<AchievementScore> AchievementScores { get; set; }
         public DbSet<User> Users { get; set; }
-
+        public DbSet<AchievementType> Types { get; set; }
+        public DbSet<AchievementGroup> Categories { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()
@@ -24,7 +26,7 @@ namespace Achievements.Database
 
         // Уставновка ef tool'а
         // cmd > dotnet tool install --global dotnet-ef
-        
+
         // Создание миграций
         // cmd> cd ./Achievements.Database
         // cmd> dotnet ef --startup-project ../Achievements.WebApplication migrations add init
