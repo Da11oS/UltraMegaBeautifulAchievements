@@ -18,8 +18,8 @@ namespace Achievements.Database
         public DbSet<AchievementGroup> AchievementGroups { get; set; }
         public DbSet<AchievementType> AchievementTypes { get; set; }
         public DbSet<Column> Columns { get; set; }
-        public DbSet<AchievementValue> AchievementValues { get; set; }
         public DbSet<AchievementInstance> AchievementInstances { get; set; }
+        public DbSet<AchievementValue> AchievementValues { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
