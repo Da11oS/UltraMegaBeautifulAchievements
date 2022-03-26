@@ -13,7 +13,6 @@ namespace Achievements.Database
             : base(options) { }
         
         public DbSet<StoredFile> StoredFiles { get; set; }
-        public DbSet<AchievementScore> AchievementScores { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<AchievementType> Types { get; set; }
         public DbSet<AchievementGroup> Categories { get; set; }
