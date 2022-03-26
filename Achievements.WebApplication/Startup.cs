@@ -30,10 +30,15 @@ namespace Achievements.WebApplication
             );
 
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration["DefaultConnection"]));
-            
+
+            #region DependecyInjection
+
             services.AddScoped(typeof(IEfRepository<>), typeof(BaseRepository<>));
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IStoredFileService, StoredFileService>();
+            services.AddScoped<IAchievementGroupsService, AchievementGroupService>();
+            
+            #endregion
             
             services.AddSpaStaticFiles(configuration =>
             {
