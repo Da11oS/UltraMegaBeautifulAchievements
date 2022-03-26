@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Achievements.Domain.Models.Achievements;
 using Achievements.WebApplication.Services;
+using Achievements.WebApplication.Services.Interfaces;
 using Achievements.WebApplication.Utils;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,9 +12,9 @@ namespace Achievements.WebApplication.Controllers.Achievements
     [Route("Achievements/[controller]")]
     public class GroupsController : ControllerBase
     {
-        private readonly AchievementGroupsService _groupsService;
+        private readonly IAchievementGroupsService _groupsService;
 
-        public GroupsController(AchievementGroupsService groupsService)
+        public GroupsController(IAchievementGroupsService groupsService)
         {
             _groupsService = groupsService;
         }

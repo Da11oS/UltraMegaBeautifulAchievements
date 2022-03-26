@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Achievements.Domain.Models.Achievements;
 using Achievements.WebApplication.Repositories;
 using Achievements.WebApplication.Services.Interfaces;
-using Microsoft.Extensions.Configuration;
 
 namespace Achievements.WebApplication.Services
 {
