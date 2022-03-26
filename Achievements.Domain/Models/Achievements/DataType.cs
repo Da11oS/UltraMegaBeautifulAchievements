@@ -1,6 +1,6 @@
 ﻿namespace Achievements.Domain.Models.Achievements
 {
-    public enum DataType
+    public enum DataType : byte
     {
         File = 1,
         String = 2,

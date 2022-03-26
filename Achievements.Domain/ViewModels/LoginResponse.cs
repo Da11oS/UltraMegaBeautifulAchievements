@@ -1,5 +1,4 @@
-﻿using Achievements.Domain.Enums;
-using Achievements.Domain.Models;
+﻿using Achievements.Domain.Models;
 
 namespace Achievements.Domain.ViewModels
 {

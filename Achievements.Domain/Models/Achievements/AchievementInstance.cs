@@ -13,7 +13,7 @@ namespace Achievements.Domain.Models.Achievements
         public DateTime CreatedDate { get; set; }
     }
 
-    public enum AchievementsStatus
+    public enum AchievementsStatus : byte
     {
         Draft = 1,
         WaitForCheck = 2,

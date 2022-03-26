@@ -1,6 +1,4 @@
-﻿using Achievements.Domain.Enums;
-
-namespace Achievements.Domain.Models
+﻿namespace Achievements.Domain.Models
 {
     /// <summary>
     /// Модель пользователя
@@ -14,5 +12,11 @@ namespace Achievements.Domain.Models
         public string Email { get; set; }
         public string Password { get; set; }
         public UserRole Role { get; set; }
+    }
+    
+    public enum UserRole : byte
+    {
+        User = 1,
+        Admin = 2
     }
 }
