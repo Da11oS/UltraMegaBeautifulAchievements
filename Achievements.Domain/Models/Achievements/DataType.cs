@@ -2,8 +2,8 @@
 {
     public enum DataType
     {
-        File,
-        String,
-        Int,
+        File = 1,
+        String = 2,
+        Int = 3
     }
 }

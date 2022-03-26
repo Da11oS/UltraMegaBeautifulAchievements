@@ -14,8 +14,13 @@ namespace Achievements.Database
         
         public DbSet<StoredFile> StoredFiles { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<AchievementType> Types { get; set; }
-        public DbSet<AchievementGroup> Categories { get; set; }
+        
+        public DbSet<AchievementGroup> AchievementGroups { get; set; }
+        public DbSet<AchievementType> AchievementTypes { get; set; }
+        public DbSet<Column> Columns { get; set; }
+        public DbSet<AchievementValue> AchievementValues { get; set; }
+        public DbSet<AchievementInstance> AchievementInstances { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()
