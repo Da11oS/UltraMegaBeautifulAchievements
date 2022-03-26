@@ -26,7 +26,7 @@ namespace Achievements.WebApplication.Controllers.Achievements
         }
         
         [Authorize]
-        [HttpPost("")]
+        [HttpPost("Create")]
         public async Task<int> Create(AchievementGroup group)
         {
             return await _groupService.CreateGroup(group);
