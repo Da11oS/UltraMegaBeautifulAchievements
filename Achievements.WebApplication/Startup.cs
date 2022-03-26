@@ -1,5 +1,6 @@
 using Achievements.Database;
 using Achievements.WebApplication.Repositories;
+using Achievements.WebApplication.Repositories.AchievementTypes;
 using Achievements.WebApplication.Services;
 using Achievements.WebApplication.Services.Interfaces;
 using Achievements.WebApplication.Utils;
@@ -34,9 +35,11 @@ namespace Achievements.WebApplication
             #region DependecyInjection
 
             services.AddScoped(typeof(IEfRepository<>), typeof(BaseRepository<>));
+            services.AddScoped(typeof(IAchievementGroupsService), typeof(AchievementTypesRepository));
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IStoredFileService, StoredFileService>();
             services.AddScoped<IAchievementGroupsService, AchievementGroupsService>();
+            services.AddScoped<IAchievementTypesService, AchievementTypesService>();
             
             #endregion
             

@@ -20,6 +20,11 @@ namespace Achievements.WebApplication.Services
             return _groupRepository.GetAll();
         }
 
+        public AchievementGroup GetGroupById(int id)
+        {
+            return _groupRepository.GetById(id);
+        }
+
         public async Task<int> CreateGroup(AchievementGroup group)
         {
             return await _groupRepository.Create(group);
