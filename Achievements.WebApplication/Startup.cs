@@ -35,7 +35,7 @@ namespace Achievements.WebApplication
             #region DependecyInjection
 
             services.AddScoped(typeof(IEfRepository<>), typeof(BaseRepository<>));
-            services.AddScoped(typeof(IAchievementGroupsService), typeof(AchievementTypesRepository));
+            services.AddScoped(typeof(IAchievementTypesRepository), typeof(AchievementTypesRepository));
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IStoredFileService, StoredFileService>();
             services.AddScoped<IAchievementGroupsService, AchievementGroupsService>();
