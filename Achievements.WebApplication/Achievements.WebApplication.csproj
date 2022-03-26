@@ -16,9 +16,4 @@
     <ProjectReference Include="..\Achievements.Database\Achievements.Database.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="ClientApp\package.json" />
-    <_ContentIncludedByDefault Remove="ClientApp\tsconfig.json" />
-  </ItemGroup>
-
 </Project>
