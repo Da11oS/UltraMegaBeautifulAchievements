@@ -1,21 +1,25 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-import LoginView from "@/views/LoginView.vue";
-import SignUpView from "@/views/SignUpView.vue";
+import Vue from 'vue';
+import VueRouter, { RouteConfig } from 'vue-router';
+import LoginView from '@/views/LoginView.vue';
+import SignUpView from '@/views/SignUpView.vue';
+import AdminView from '@/views/AdminView.vue';
 
-const routes: Array<RouteRecordRaw> = [
+Vue.use(VueRouter);
+
+const routes: Array<RouteConfig> = [
   {
-    path: "/",
-    name: "Login",
-    component: LoginView,
+    path: '/',
+    name: 'Login',
+    component: LoginView
   },
   {
-    path: "/sign-up",
-    name: "sign-up",
-    component: SignUpView,
+    path: '/sign-up',
+    name: 'sign-up',
+    component: SignUpView
   },
   {
-    path: "/achichevements",
-    name: "achichevements",
+    path: '/achichevements',
+    name: 'achichevements',
     component: SignUpView,
     children: [
       // {
@@ -23,13 +27,34 @@ const routes: Array<RouteRecordRaw> = [
       //   name: "editAchievements",
       //   component: SignUpView,
       // },
-    ],
+    ]
   },
+  {
+    path: '/admin',
+    name: 'admin-page',
+    component: AdminView,
+    children: [
+      // {
+      //   path: "/achievement-groups",
+      //   name: "achievement-groups",
+      //   component: SignUpView,
+      // },
+      // {
+      //   path: "/achievement-types",
+      //   name: "achievement-types",
+      //   component: SignUpView,
+      // },
+      // {
+      //   path: "/achievement-resolve",
+      //   name: "achievement-resolve",
+      //   component: SignUpView,
+      // },
+    ]
+  }
 ];
 
-const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
-  routes,
+const router = new VueRouter({
+  routes
 });
 
 export default router;

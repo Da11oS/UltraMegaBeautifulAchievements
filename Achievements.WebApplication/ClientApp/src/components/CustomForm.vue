@@ -1,7 +1,8 @@
 <script lang="ts">
-import { defineComponent, VNode } from "vue";
-import { VForm } from "vuetify/lib/components";
-import { Vue } from "vue-class-component";
+
+import { defineComponent } from '@vue/composition-api';
+import Vue, { VNode } from 'vue';
+import { VForm } from 'vuetify/lib/components';
 
 interface SubmitEvent extends Event {
   submitter: HTMLElement;
@@ -44,48 +45,48 @@ export interface VuetifyForms extends Vue {
   inputs: InputInstance[];
 }
 
-const validateVForm = Reflect.get(VForm, "options")?.methods?.validate;
-const resetVForm = Reflect.get(VForm, "options")?.methods?.reset;
+const validateVForm = Reflect.get(VForm, 'options')?.methods?.validate;
+const resetVForm = Reflect.get(VForm, 'options')?.methods?.reset;
 
 export default defineComponent({
-  name: "CustomForm",
+  name: 'CustomForm',
   props: {
     loading: { type: Boolean, default: false },
-    byEnter: { type: Boolean, default: false },
+    byEnter: { type: Boolean, default: false }
   },
   inject: { form: { default: undefined } },
-  data() {
+  data () {
     return {
       ...{} as VuetifyForms,
       ...{} as { form?: VuetifyForms },
-      internalForms: [] as FormInstance[],
+      internalForms: [] as FormInstance[]
     };
   },
   emits: {
-    submit: (ev: SubmitEvent) => true,
+    submit: (ev: SubmitEvent) => true
   },
   mixins: [VForm],
-  created() {
+  created () {
     const { form } = this;
 
     if (form != null && form.registerForm != null) {
       form.registerForm(this);
     }
   },
-  beforeUnmount() {
+  beforeUnmount () {
     const { form } = this;
     if (form != null && form.unregisterForm != null) {
       form.unregisterForm(this);
     }
   },
   methods: {
-    validateBase(...arg: unknown[]) {
+    validateBase (...arg: unknown[]) {
       return validateVForm.apply(this, arg);
     },
-    resetBase(...arg: unknown[]) {
+    resetBase (...arg: unknown[]) {
       return resetVForm.apply(this, arg);
     },
-    validate() {
+    validate () {
       let result = true;
       const { internalForms } = this;
       for (const form of internalForms) {
@@ -94,14 +95,14 @@ export default defineComponent({
       result = result && this.validateBase();
       return result;
     },
-    reset() {
+    reset () {
       const { internalForms } = this;
       for (const form of internalForms) {
         form.reset();
       }
       this.resetBase();
     },
-    getFieldsErrors(): AFormValidationMsg[] {
+    getFieldsErrors (): AFormValidationMsg[] {
       const errors = [] as AFormValidationMsg[];
       const errorUids = [] as number[];
       const { errorBag, internalForms } = this;
@@ -112,7 +113,7 @@ export default defineComponent({
         const _uid = input?._uid;
         if (_uid != null && errorUids.includes(_uid)) {
           const errorBucket = input?._data?.errorBucket ?? [];
-          const prefix = input?._props?.label ?? "";
+          const prefix = input?._props?.label ?? '';
           errors.push({ prefix, valid: errorBucket.join() });
         }
       });
@@ -124,40 +125,41 @@ export default defineComponent({
       }
       return errors;
     },
-    registerForm(from: FormInstance) {
+    registerForm (from: FormInstance) {
       if (!this.internalForms.includes(from)) {
         this.internalForms.push(from);
       }
     },
-    unregisterForm(from: FormInstance) {
+    unregisterForm (from: FormInstance) {
       const ind = this.internalForms.indexOf(from);
       if (ind >= 0) this.internalForms.splice(ind, 1);
-    },
+    }
   },
 
-  render(this: VuetifyForms & {byEnter: boolean}, h: any): VNode {
-    return h("form", {
-      staticClass: "v-form",
+  render (this: VuetifyForms & {byEnter: boolean}, h): VNode {
+    return h('form', {
+      staticClass: 'v-form',
       attrs: {
         novalidate: true,
-        ...(this as any).attrs$,
+        ...(this as any).attrs$
       },
       on: {
         keypress: (ev: KeyboardEvent) => {
-          if (ev.key === "Enter" && !this.byEnter) {
+          if (ev.key === 'Enter' && !this.byEnter) {
             ev.preventDefault();
           }
         },
         submit: (e: SubmitEvent) => {
           e.preventDefault();
           if (this.validate()) {
-            this.$emit("submit", e);
+            this.$emit('submit', e);
           } else {
             e.stopPropagation();
           }
-        },
-      },
+        }
+      }
     }, this.$slots.default);
-  },
+  }
 });
+
 </script>

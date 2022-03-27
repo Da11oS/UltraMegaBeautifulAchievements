@@ -15,5 +15,4 @@
   <ItemGroup>
     <ProjectReference Include="..\Achievements.Database\Achievements.Database.csproj" />
   </ItemGroup>
-
 </Project>

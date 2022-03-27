@@ -7,15 +7,13 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
-import LoginForm from "@/components/LoginForm.vue";
-import SignUp from "@/components/SignUp.vue";
-import { defineComponent } from "vue"; // @ is an alias to /src
+import SignUp from '@/components/SignUp.vue';
+import { defineComponent } from '@vue/composition-api';
 
 export default defineComponent({
-  name: "SignUpView",
+  name: 'SignUpView',
   components: {
-    SignUp,
-  },
+    SignUp
+  }
 });
 </script>

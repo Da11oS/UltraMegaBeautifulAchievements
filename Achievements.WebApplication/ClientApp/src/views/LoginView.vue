@@ -6,13 +6,13 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
-import LoginForm from "@/components/LoginForm.vue"; // @ is an alias to /src
+import LoginForm from '@/components/LoginForm.vue';
+import { defineComponent } from '@vue/composition-api';
 
-@Options({
+export default defineComponent({
+  name: 'LoginView',
   components: {
-    LoginForm,
-  },
-})
-export default class LoginView extends Vue {}
+    LoginForm
+  }
+});
 </script>

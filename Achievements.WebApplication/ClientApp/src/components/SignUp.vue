@@ -9,7 +9,7 @@
           <v-list-item>
             <v-text-field
               label="First name"
-              v-model="model.firstName"
+              v-model="firstName"
               :rules="rules"
               hide-details="auto"
             ></v-text-field>
@@ -17,7 +17,7 @@
           <v-list-item>
             <v-text-field
               label="Last name"
-              v-model="model.lastName"
+              v-model="lastName"
               :rules="rules"
               hide-details="auto"
             ></v-text-field>
@@ -25,7 +25,7 @@
           <v-list-item>
             <v-text-field
               label="Patronymic"
-              v-model="model.patronymic"
+              v-model="patronymic"
               :rules="rules"
               hide-details="auto"
             ></v-text-field>
@@ -33,7 +33,7 @@
           <v-list-item>
             <v-text-field
               label="User name"
-              v-model="model.userName"
+              v-model="userName"
               :rules="rules"
               hide-details="auto"
             ></v-text-field>
@@ -41,7 +41,7 @@
           <v-list-item>
             <v-text-field
               label="Email"
-              v-model="model.email"
+              v-model="email"
               :rules="emailRules"
               hide-details="auto"
             ></v-text-field>
@@ -49,7 +49,7 @@
           <v-list-item>
             <v-text-field
               label="Password"
-              v-model="model.password"
+              v-model="password"
               :rules="rules"
               hide-details="auto"
               type="password"
@@ -58,7 +58,7 @@
         </v-list>
     </v-card-text>
     <v-card-actions>
-      <v-btn  @click="$router.back()">Back</v-btn>
+      <v-btn @click="$router.back()">Back</v-btn>
       <v-spacer></v-spacer>
       <v-btn color="primary" @click="signUp">
         Sign Up
@@ -74,50 +74,58 @@
 </template>
 
 <script lang="ts">
-import { Component, onMounted, computed, defineComponent, ref, watch } from "vue";
-import { User } from "@/api";
-import axios from "axios";
+import { User } from '@/api';
+import axios from 'axios';
+import { computed, defineComponent, ref, watch } from '@vue/composition-api';
 
-const rules = [
-  (value: string) => !!value || "Required.",
-  (value: string) => (value && value.length >= 3) || "Min 3 characters",
-];
 enum RegisterResponse{
-  success = "Пользователь создан успешно!"
+  success = 'Пользователь создан успешно!'
 }
 export default defineComponent({
-  name: "SignUp",
+  name: 'SignUp',
   methods: {
   },
-  setup(root) {
-    const form = ref();
-    const model = ref<User>({
-      firstName: "",
-      lastName: "",
-      patronymic: "",
-      userName: "",
-      password: "",
-    } as User);
+  setup () {
+    const firstName = ref<string>('');
+    const lastName = ref<string>('');
+    const patronymic = ref<string>('');
+    const userName = ref<string>('');
+    const email = ref<string>('');
+    const password = ref<string>('');
+    const model = computed(() => {
+      return {
+        firstName: firstName.value,
+        lastName: lastName.value,
+        patronymic: patronymic.value,
+        userName: userName.value,
+        password: password.value,
+        email: email.value
+      };
+    });
+    const rules = ref<((value: string) => void)[]>([
+      (value: string) => !!value || 'Required.',
+      (value: string) => (value && value.length >= 3) || 'Min 3 characters'
+    ]);
     const isValid = ref<boolean>(true);
     const snackBarShow = ref<boolean>(false);
-    const snackBarText = ref<string>("Пользователь создан успешно!");
-    const emailRules = computed(() => [...rules, ...[(value: string) => {
+    const snackBarText = ref<string>('Пользователь создан успешно!');
+    const emailRules = computed(() => [...rules.value, ...[(value: string) => {
       return String(value)
         .toLowerCase()
         .match(
-          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         );
     }]]);
 
-    async function signUp() {
+    async function signUp () {
       try {
-        const response = await axios.post("Users/Register", {
+        await axios.post('Users/Register', {
           FirstName: model.value.firstName,
           LastName: model.value.lastName,
           Patronymic: model.value.patronymic,
           Username: model.value.userName,
           Email: model.value.email,
-          Password: model.value.password,
+          Password: model.value.password
         });
         snackBarText.value = RegisterResponse.success;
         snackBarShow.value = true;
@@ -127,7 +135,7 @@ export default defineComponent({
       }
     }
 
-    watch(snackBarShow, (value) => {
+    watch(snackBarShow, () => {
       setTimeout(() => {
         snackBarShow.value = false;
       },
@@ -141,11 +149,13 @@ export default defineComponent({
       signUp,
       snackBarText,
       snackBarShow,
+      firstName,
+      lastName,
+      email,
+      patronymic,
+      userName,
+      password
     };
-  },
+  }
 });
 </script>
-
-<style scoped>
-
-</style>
