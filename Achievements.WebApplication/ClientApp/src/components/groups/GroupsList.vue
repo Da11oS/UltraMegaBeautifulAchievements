@@ -1,7 +1,14 @@
 <template>
   <v-card>
   <v-expansion-panels>
-    <v-expansion-panel v-for="group in groups" :key="group.id">
+    <group-create-dialog v-model="createGroupDialog"
+                         @group:create="createGroup($event.name)"
+    ></group-create-dialog>
+    <v-spacer></v-spacer>
+    <v-btn icon @click="createGroupDialog = true">
+      <v-icon>mdi-playlist-plus</v-icon>
+    </v-btn>
+    <v-expansion-panel v-for="group in groupsList" :key="group.id">
       <v-expansion-panel-header  class="px-2 rounded-0"
                                  style="border-top:1px solid gainsboro; border-bottom: 1px solid gainsboro;">
         <template #actions>
@@ -25,11 +32,11 @@
             </div>
             <template>
               <div>
-              <v-btn icon>
+              <v-btn icon color="red">
                 <v-icon>mdi-trash-can</v-icon>
               </v-btn>
-              <v-btn icon>
-                <v-icon>mdi-playlist-plus</v-icon>
+              <v-btn icon @click="createTypeClickHandler(group.id)">
+                <v-icon> mdi-playlist-plus</v-icon>
               </v-btn>
               </div>
             </template>
@@ -50,34 +57,70 @@
                 <v-btn icon @click="consoleLog">
                   <v-icon> mdi-trash-can</v-icon>
                 </v-btn>
-                <v-btn icon @click="consoleLog">
-                  <v-icon> mdi-plus</v-icon>
-                </v-btn>
               </v-list-item-action>
             </v-list-item>
        </v-expansion-panel-content>
     </v-expansion-panel>
   </v-expansion-panels>
+    <v-dialog v-model="createTypeDialog.isShow">
+    <TypeCreateForm @click:close="createTypeDialog.isShow = false">
+
+    </TypeCreateForm>
+    </v-dialog>
   </v-card>
 </template>
 
 <script lang ="ts">
 
-import { defineComponent, ref } from '@vue/composition-api';
-import { Type } from '@/api';
-import { setup } from 'vue-class-component/dist/vue-class-component';
-import axios from 'axios';
+import { computed, defineComponent, onMounted, ref } from '@vue/composition-api';
+import { Group, Type } from '@/api';
+import { useGroupData } from '@/components/groups/groupsComposable';
+import GroupCreateDialog from '@/components/groups/GroupCreateDialog.vue';
+import TypeCreateForm from '@/components/Types/TypeCreateForm.vue';
 
 interface Groups{
   id: number;
   name: string;
   items: Type[];
 }
+interface TypeDialog {
+  isShow: boolean;
+  type: number | null;
+  group: number;
+}
 export default defineComponent({
   name: 'GroupsList',
-  data () {
+  components: { TypeCreateForm, GroupCreateDialog },
+  setup () {
+    const { createGroup, getGroups, groups } = useGroupData();
+    const createGroupDialog = ref<boolean>(false);
+    const createTypeDialog = ref<TypeDialog>({ isShow: false, type: null, group: 0 });
+    const groupsList = computed(() =>
+      groups.value.map(m => {
+        return {
+          id: m.id,
+          name: m.name,
+          items: [{
+            id: 1,
+            name: 'asdf'
+          }]
+        } as Groups;
+      })
+    );
+    function createTypeClickHandler (group: number, typeId?: number) {
+      createTypeDialog.value.isShow = true;
+      createTypeDialog.value.type = typeId ?? null;
+      createTypeDialog.value.group = group;
+    }
+    onMounted(getGroups);
     return {
-      groups: [{ id: 1, name: 'тест', items: [{ id: 2, name: 'testType' }] }]
+      createGroup,
+      getGroups,
+      createGroupDialog,
+      groups,
+      groupsList,
+      createTypeDialog,
+      createTypeClickHandler
     };
   },
   methods: {

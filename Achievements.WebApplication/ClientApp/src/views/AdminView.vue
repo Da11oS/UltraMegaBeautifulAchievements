@@ -2,7 +2,6 @@
   <v-container>
     <v-tabs>
       <v-tab>Категории достижений</v-tab>
-      <v-tab>Типы достижений</v-tab>
       <v-tab>Принять</v-tab>
       <v-tab-item>
         <groups-list></groups-list>
@@ -12,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import GroupsList from '@/components/GroupsList.vue';
+import GroupsList from '@/components/groups/GroupsList.vue';
 import { defineComponent, ref } from '@vue/composition-api';
 
 export default defineComponent({

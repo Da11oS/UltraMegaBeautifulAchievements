@@ -15,6 +15,7 @@ namespace Achievements.WebApplication
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.UseUrls("https://localhost:5001/", "http://localhost:5000/");
                 });
     }
 }

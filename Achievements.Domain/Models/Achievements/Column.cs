@@ -8,6 +8,7 @@ namespace Achievements.Domain.Models.Achievements
     public class Column : BaseEntity
     {
         public DataType DataType { get; set; }
+        public string Label { get; set; }
         public AchievementType AchievementType { get; set; }
     }
 
