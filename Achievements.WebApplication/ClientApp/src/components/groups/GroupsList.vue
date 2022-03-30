@@ -1,16 +1,17 @@
 <template>
   <v-card>
   <v-expansion-panels>
-    <group-create-dialog v-model="createGroupDialog"
-                         @group:create="createGroup($event.name)"
-    ></group-create-dialog>
     <v-spacer></v-spacer>
-    <v-btn icon @click="createGroupDialog = true">
+    <v-btn
+      icon
+      @click="createGroupDialog = true">
       <v-icon>mdi-playlist-plus</v-icon>
     </v-btn>
-    <v-expansion-panel v-for="group in groupsList" :key="group.id">
-      <v-expansion-panel-header  class="px-2 rounded-0"
-                                 style="border-top:1px solid gainsboro; border-bottom: 1px solid gainsboro;">
+    <v-expansion-panel v-for="group in groupsList"
+                       :key="group.id">
+      <v-expansion-panel-header
+        class="px-2 rounded-0"
+        style="border-top:1px solid gainsboro; border-bottom: 1px solid gainsboro;">
         <template #actions>
           <v-icon
             class="text--primary"
@@ -44,7 +45,8 @@
         </div>
       </v-expansion-panel-header>
       <v-expansion-panel-content eager>
-            <v-list-item v-for="type in group.items" :key="type.id"
+            <v-list-item v-for="type in group.items"
+                         :key="type.id"
             tag="div">
               <v-list-item-title>
                 <span> {{ type.id }} </span>
@@ -63,10 +65,14 @@
     </v-expansion-panel>
   </v-expansion-panels>
     <v-dialog v-model="createTypeDialog.isShow">
-    <TypeCreateForm @click:close="createTypeDialog.isShow = false">
-
+    <TypeCreateForm @click:close="createTypeDialog.isShow = false"
+    @click:create="achievementHandler">
     </TypeCreateForm>
     </v-dialog>
+    <group-create-dialog
+      v-model="createGroupDialog"
+      @group:create="groupCreateHandler"
+    ></group-create-dialog>
   </v-card>
 </template>
 
@@ -77,6 +83,8 @@ import { Group, Type } from '@/api';
 import { useGroupData } from '@/components/groups/groupsComposable';
 import GroupCreateDialog from '@/components/groups/GroupCreateDialog.vue';
 import TypeCreateForm from '@/components/Types/TypeCreateForm.vue';
+import { useAchievementTypeData } from '@/components/Types/AchievementTypeComposable';
+import { Column } from '@/components/Types/ColumnOfType.vue';
 
 interface Groups{
   id: number;
@@ -93,6 +101,7 @@ export default defineComponent({
   components: { TypeCreateForm, GroupCreateDialog },
   setup () {
     const { createGroup, getGroups, groups } = useGroupData();
+    const { createAchievementType } = useAchievementTypeData();
     const createGroupDialog = ref<boolean>(false);
     const createTypeDialog = ref<TypeDialog>({ isShow: false, type: null, group: 0 });
     const groupsList = computed(() =>
@@ -112,15 +121,22 @@ export default defineComponent({
       createTypeDialog.value.type = typeId ?? null;
       createTypeDialog.value.group = group;
     }
+    async function achievementHandler (event: {model: Type, columns: Column[]}) {
+      await createAchievementType(event.model, event.columns);
+    }
+    async function groupCreateHandler (group: Group) {
+      await createGroup(group);
+    }
     onMounted(getGroups);
     return {
       createGroup,
-      getGroups,
+      groupCreateHandler,
       createGroupDialog,
       groups,
       groupsList,
       createTypeDialog,
-      createTypeClickHandler
+      createTypeClickHandler,
+      achievementHandler
     };
   },
   methods: {

@@ -49,12 +49,13 @@ export default {
       get: () => dialog.value,
       set: (value) => {
         dialog.value = value;
-        emit('dialog:update', dialog);
+        emit('dialog:update', value);
       }
     });
     const model = computed(() => {
       return { id: null, name: name.value } as Group;
     });
+
     const rules = ref<((value: string) => void)[]>([
       (value: string) => !!value || 'Required.',
       (value: string) => (value && value.length >= 3) || 'Min 3 characters'

@@ -5,30 +5,32 @@
         <v-text-field
           label="Название типа достижения"
           v-model="name"
-          :rules="rules"
           hide-details="auto"
         >
         </v-text-field>
-        <v-btn icon @click="columns.push(getNewColumn)">
-          <v-icon>
-            mdi-plus
-          </v-icon>
-        </v-btn>
       </v-toolbar>
     </v-card-title>
     <v-card-text>
-  <v-list>
-    <ColumnOfType @column:remove="removeColumn">
-    </ColumnOfType>
-  </v-list>
+      <v-list>
+        <ColumnOfType v-for="(col, idx) in columns"
+                      :key="idx"
+                      :model="col"
+                      @column:remove="removeColumn(idx)">
+          {{idx}}
+        </ColumnOfType>
+      </v-list>
     </v-card-text>
     <v-card-actions>
       <v-btn @click="$emit('click:close')">
         Отмена
       </v-btn>
+      <v-spacer></v-spacer>
+      <v-btn color="primary" @click="addColumn(getNewColumn())">
+        Добавить
+      </v-btn>
       <v-spacer>
       </v-spacer>
-      <v-btn color="primary" @click="$emit('type:create', model)">
+      <v-btn color="primary" @click="$emit('click:create', {model, columns})">
         Создать
       </v-btn>
     </v-card-actions>
@@ -36,37 +38,43 @@
 </template>
 
 <script lang = "ts">
-import { computed, defineComponent, ref } from '@vue/composition-api';
+import { computed, defineComponent, PropType, ref } from '@vue/composition-api';
 import ColumnOfType, { Column } from '@/components/Types/ColumnOfType.vue';
+import { Type } from '@/api';
 
 export default defineComponent({
   name: 'TypeCreateForm',
   components: { ColumnOfType },
   props: {
+    model: { type: Object as PropType<Type> },
     groupId: { type: Number },
     typeId: { type: Number }
-
   },
   setup () {
-    const columns = ref<Column[]>();
-    const getNewColumn = computed(() :Column => {
+    const columns = ref<Column[]>([]);
+    function getNewColumn ():Column {
       return {
         dataType: 0,
         id: null,
         typeId: 0,
         label: ''
       };
-    });
-    function removeColumn (column: Column) {
-      const index = columns.value?.indexOf(column);
-      if (index) {
-        columns.value?.splice(index);
-      }
+    }
+    const name = ref<string>('');
+    function removeColumn (columnIndex: number) {
+      columns.value.splice(columnIndex, 1);
+    }
+    function addColumn (column: Column) {
+      columns.value.push(getNewColumn());
     }
     return {
       columns,
-      removeColumn
+      removeColumn,
+      addColumn,
+      name,
+      getNewColumn
     };
   }
 });
+
 </script>

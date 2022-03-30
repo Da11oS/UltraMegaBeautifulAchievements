@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from '@vue/composition-api';
-import { ValueOfInstanceColumn } from '@/components/Types/AchievementInstance.vue';
+import { ValueOfInstanceColumn } from '@/components/DataComponents/AchievementInstance.vue';
 
 export default defineComponent({
   name: 'NumberField',

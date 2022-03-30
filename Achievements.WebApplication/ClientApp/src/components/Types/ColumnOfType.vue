@@ -1,14 +1,17 @@
 <template>
   <v-list-item>
-    <v-list-item-content style="display: grid; grid-template-columns: 50% 50%">
+    <v-list-item-content style="display: grid; grid-template-columns: auto 50% 50%">
+      <slot>
+
+      </slot>
       <v-text-field
         label="Label"
-        :rules="rules"
         hide-details="auto"
+        v-model="modelProp.label"
       ></v-text-field>
       <v-select
         :items="selectList"
-        @change="consoleLog($event)"
+        @change="modelProp.dataType = $event"
       ></v-select>
     </v-list-item-content>
     <v-list-item-action>
@@ -22,8 +25,8 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType } from '@vue/composition-api';
-import { DataTypes, columnTypes } from './AchievementInstance.vue';
+import { computed, defineComponent, PropType, toRef, watch } from '@vue/composition-api';
+import { columnTypes, DataTypes } from '../DataComponents/dataComposable';
 
 // Колонки в БД
 export interface Column {
@@ -41,7 +44,12 @@ export default defineComponent({
   props: {
     model: { type: Object as PropType<Column> }
   },
-  setup () {
+  model: {
+    prop: 'model',
+    event: 'update:model'
+  },
+  setup (props, { emit }) {
+    const modelProp = toRef(props, 'model');
     const selectList = computed((): SelectItem[] => {
       return columnTypes.map(m => {
         return {
@@ -50,8 +58,12 @@ export default defineComponent({
         };
       });
     });
+    watch(modelProp, (value) => {
+      emit('update:model', value);
+    });
     return {
-      selectList
+      selectList,
+      modelProp
     };
   },
   methods: {

@@ -13,9 +13,9 @@ export function useGroupData () {
       console.warn(ex);
     }
   }
-  async function createGroup (name: string) {
+  async function createGroup (group: Partial<Group>) {
     try {
-      const response = await axios.post('Achievements/Groups/Create', { name });
+      const response = await axios.post('Achievements/Groups/Create', group);
       await getGroups();
     } catch (ex) {
       console.error(ex);

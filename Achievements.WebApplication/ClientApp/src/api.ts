@@ -13,5 +13,6 @@ export interface Group {
 }
 export interface Type {
   id: number|null;
+  groupId: number;
   name: string;
 }
