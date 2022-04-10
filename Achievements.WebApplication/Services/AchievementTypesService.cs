@@ -11,11 +11,9 @@ namespace Achievements.WebApplication.Services
     public class AchievementTypesService : IAchievementTypesService
     {
         private readonly IAchievementTypesRepository _typeRepository;
-        private readonly ApplicationDbContext _ctx;
-        public AchievementTypesService(IAchievementTypesRepository typeRepository, ApplicationDbContext ctx)
+        public AchievementTypesService(IAchievementTypesRepository typeRepository)
         {
             _typeRepository = typeRepository;
-            _ctx = ctx;
         }
         
         public IEnumerable<AchievementType> GetAllTypes()

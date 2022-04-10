@@ -11,7 +11,7 @@
 import { Column } from '@/components/Types/ColumnOfType.vue';
 import { useAchievementTypeData } from '@/components/Types/AchievementTypeComposable';
 import { User } from '@/api';
-import { PropType, ref } from '@vue/composition-api';
+import { defineComponent, PropType, ref } from '@vue/composition-api';
 
 export enum AchievementType {
 
@@ -32,7 +32,7 @@ export interface ValueOfInstanceColumn {
   value: string;
 }
 
-export default {
+export default defineComponent({
   name: 'AchievementInstance',
   props: { model: { type: Object as PropType<Instance> } },
   setup () {
@@ -42,6 +42,6 @@ export default {
       instanceValues
     };
   }
-};
+});
 
 </script>

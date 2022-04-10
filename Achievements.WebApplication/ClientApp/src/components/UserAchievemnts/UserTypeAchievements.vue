@@ -6,11 +6,9 @@
     </AchievemntsInstanceHeader>
   </v-list-item-title>
   <v-list-item-content>
-    <v-row>
       <AchievementInstance>
 
       </AchievementInstance>
-    </v-row>
   </v-list-item-content>
   </v-list-item>
 </v-list>
@@ -26,6 +24,12 @@ export default defineComponent({
   components: { AchievemntsInstanceHeader, AchievementInstance },
   props: {
     typeId: Number
+  },
+  setup (props, { parent }) {
+    if (parent) {
+      console.log(parent);
+      parent.$on('click', () => console.log(props.typeId + ', ' + parent.$data.isActive));
+    }
   }
 });
 </script>

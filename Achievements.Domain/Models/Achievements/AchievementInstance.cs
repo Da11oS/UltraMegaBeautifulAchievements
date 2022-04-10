@@ -8,6 +8,7 @@ namespace Achievements.Domain.Models.Achievements
         public AchievementType AchievementType{ get; set; }
         public User User{ get; set; }
         public AchievementsStatus Status{ get; set; }
+        public List<AchievementValue> Values { get; set; }
         public User Expert { get; set; }
         public DateTime CheckedDate { get; set; }
         public DateTime CreatedDate { get; set; }

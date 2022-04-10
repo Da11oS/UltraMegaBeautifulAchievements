@@ -14,13 +14,14 @@
                      :key="type.id">
           <v-list-group prepend-icon="mdi-trophy-variant-outline"
                         sub-group
-          style="width: 100%">
+          style="width: 100%"
+          @click="showTypeHandler(type)">
             <template v-slot:activator>
               <v-list-item-content>
                 <v-list-item-title>{{ type.name }}</v-list-item-title>
               </v-list-item-content>
             </template>
-            <UserTypeAchievements >
+            <UserTypeAchievements :type-id="type.id">
 
             </UserTypeAchievements>
           </v-list-group>
@@ -42,15 +43,21 @@
 import UserTypeAchievements from '@/components/UserAchievemnts/UserTypeAchievements.vue';
 import { defineComponent, onMounted } from '@vue/composition-api';
 import { useGroupData } from '../groups/groupsComposable';
+import { Type } from '@/api';
 
 export default defineComponent({
   name: 'UserAchievementsList',
   components: { UserTypeAchievements },
-  setup () {
-    const { createGroup, getGroupsWithTypes, groupsWithTypes } = useGroupData();
+  setup (props, { emit }) {
+    const { getGroupsWithTypes, groupsWithTypes } = useGroupData();
     onMounted(getGroupsWithTypes);
+    function showTypeHandler (type: Type) {
+      emit('showType', type);
+      console.log('type from parent ' + type.id);
+    }
     return {
-      groupsWithTypes
+      groupsWithTypes,
+      showTypeHandler
     };
   }
 });

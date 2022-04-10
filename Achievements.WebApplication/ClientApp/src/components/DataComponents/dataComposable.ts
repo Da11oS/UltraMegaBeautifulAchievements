@@ -1,6 +1,7 @@
 import TextField from '@/components/DataComponents/TextField.vue';
 import FileField from '@/components/DataComponents/FileField.vue';
 import NumberField from '@/components/DataComponents/NumberField.vue';
+import axios from 'axios';
 
 export enum DataTypes {
   text = 1,
@@ -33,3 +34,22 @@ export const columnTypes = [
     component: NumberField
   }
 ] as ColumnType[];
+
+export function getTypeValues (userId: number, typeId: number) {
+
+}
+export function getTypeColumns (typeId: number) {
+  axios.get('/');
+}
+export function useAchievementValue (userId: number, typeId: number) {
+  function getTypeValues () {
+
+  }
+
+  function createAchievementInstance () {
+
+  }
+  return {
+
+  };
+}
