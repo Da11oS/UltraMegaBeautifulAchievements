@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Achievements.Database;
 using Achievements.Domain.Models.Achievements;
 using Achievements.WebApplication.Repositories;
 using Achievements.WebApplication.Repositories.AchievementTypes;
@@ -10,10 +11,11 @@ namespace Achievements.WebApplication.Services
     public class AchievementTypesService : IAchievementTypesService
     {
         private readonly IAchievementTypesRepository _typeRepository;
-
-        public AchievementTypesService(IAchievementTypesRepository typeRepository)
+        private readonly ApplicationDbContext _ctx;
+        public AchievementTypesService(IAchievementTypesRepository typeRepository, ApplicationDbContext ctx)
         {
             _typeRepository = typeRepository;
+            _ctx = ctx;
         }
         
         public IEnumerable<AchievementType> GetAllTypes()
@@ -40,6 +42,11 @@ namespace Achievements.WebApplication.Services
                 AchievementGroup = group
             };
             return await _typeRepository.Create(type);
+        }
+
+        public async Task Create(AchievementType type, Column[] columns)
+        {
+            await _typeRepository.Create(type, columns);
         }
     }
 }

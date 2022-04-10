@@ -25,7 +25,7 @@
           <v-spacer></v-spacer>
           <router-link to="/sign-up"> Go to sign up</router-link>
           <v-spacer></v-spacer>
-          <v-btn color="primary" @click="loginRequest">Login</v-btn>
+          <v-btn color="primary" @click="loginHandler">Login</v-btn>
         </v-card-actions>
       </v-card>
 <!--  </v-layout>-->
@@ -49,17 +49,25 @@ export default defineComponent({
     source: String
   },
   methods: {
-    async loginRequest () {
+    async loginHandler () {
       try {
         const response = await axios.post('Users/Login', {
           username: this.username,
           password: this.password
         });
+
         if (response) {
           localStorage.setItem('token', response.data.token);
+          localStorage.setItem('userId', response.data.id);
         }
+
+        // await this.$router.push({
+        //   name: 'admin-page'
+        // });
+
         await this.$router.push({
-          name: 'admin-page'
+          name: 'user-page',
+          params: { userId: response.data.id }
         });
       } catch (ex) {
         console.error(ex);

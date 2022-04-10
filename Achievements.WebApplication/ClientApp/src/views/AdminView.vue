@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-tabs>
+    <v-tabs centered>
       <v-tab>Категории достижений</v-tab>
       <v-tab>Принять</v-tab>
       <v-tab-item>

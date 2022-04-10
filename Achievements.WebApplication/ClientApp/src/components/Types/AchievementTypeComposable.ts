@@ -4,10 +4,10 @@ import { Column } from '@/components/Types/ColumnOfType.vue';
 
 export function useAchievementTypeData () {
   async function createAchievementType (achievementType: Partial<Type>, columns: Column[]) {
-    const response = await axios.post('Types/Create', achievementType);
-    const achievementId = response.data;
-    const columnsResponse = await axios.post('', columns);
+    const query = { type: achievementType, columns: columns };
+    const columnsResponse = await axios.post('Types/WithColumns', query);
   }
+
   async function getTypes (groupId: number) {
     try {
       const response = await axios.get('Types/Group/' + groupId);

@@ -28,9 +28,9 @@
 
 <script lang="ts">
 import { Group } from '@/api';
-import { computed, ref, set, toRef, watch } from '@vue/composition-api';
+import { computed, defineComponent, ref, set, toRef, watch } from '@vue/composition-api';
 
-export default {
+export default defineComponent({
   name: 'GroupCreateDialog',
   props: {
     dialog: { type: Boolean, require: true, default: false }
@@ -53,7 +53,7 @@ export default {
       }
     });
     const model = computed(() => {
-      return { id: null, name: name.value } as Group;
+      return { id: 0, name: name.value } as Group;
     });
 
     const rules = ref<((value: string) => void)[]>([
@@ -67,5 +67,5 @@ export default {
       model
     };
   }
-};
+});
 </script>

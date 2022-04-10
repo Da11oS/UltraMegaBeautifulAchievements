@@ -25,6 +25,7 @@
 </template>
 
 <script lang="ts">
+import { Type } from '@/api';
 import { computed, defineComponent, PropType, toRef, watch } from '@vue/composition-api';
 import { columnTypes, DataTypes } from '../DataComponents/dataComposable';
 
@@ -32,8 +33,8 @@ import { columnTypes, DataTypes } from '../DataComponents/dataComposable';
 export interface Column {
   dataType: DataTypes;
   id: number | null;
-  typeId: number;
   label: string;
+  achievementType: Type | null;
 }
 export interface SelectItem {
   value: number;
@@ -58,9 +59,11 @@ export default defineComponent({
         };
       });
     });
+
     watch(modelProp, (value) => {
       emit('update:model', value);
     });
+
     return {
       selectList,
       modelProp

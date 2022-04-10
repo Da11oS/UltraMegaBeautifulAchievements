@@ -22,7 +22,7 @@ import AchievementInstance from '@/components/DataComponents/AchievementInstance
 import AchievemntsInstanceHeader from '@/components/DataComponents/AchievemntsInstanceHeader.vue';
 
 export default defineComponent({
-  name: 'UserTypeAchievemnts',
+  name: 'UserTypeAchievements',
   components: { AchievemntsInstanceHeader, AchievementInstance },
   props: {
     typeId: Number

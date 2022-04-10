@@ -26,7 +26,7 @@
       </v-btn>
       <v-spacer></v-spacer>
       <v-btn color="primary" @click="addColumn(getNewColumn())">
-        Добавить
+        Добавить компонент
       </v-btn>
       <v-spacer>
       </v-spacer>
@@ -40,39 +40,51 @@
 <script lang = "ts">
 import { computed, defineComponent, PropType, ref } from '@vue/composition-api';
 import ColumnOfType, { Column } from '@/components/Types/ColumnOfType.vue';
-import { Type } from '@/api';
+import { Group, Type } from '@/api';
 
 export default defineComponent({
   name: 'TypeCreateForm',
   components: { ColumnOfType },
   props: {
-    model: { type: Object as PropType<Type> },
-    groupId: { type: Number },
-    typeId: { type: Number }
+    group: { type: Object as PropType<Group>, required: true },
+    type: { type: Object as PropType<Type> }
   },
-  setup () {
+  setup (props) {
     const columns = ref<Column[]>([]);
+
+    const model = computed((): Type => {
+      return {
+        id: props.type?.id ?? 0,
+        achievementGroup: props.group,
+        name: name.value
+      };
+    });
+
     function getNewColumn ():Column {
       return {
         dataType: 0,
-        id: null,
-        typeId: 0,
+        id: 0,
+        achievementType: props.type ?? null,
         label: ''
       };
     }
+
     const name = ref<string>('');
     function removeColumn (columnIndex: number) {
       columns.value.splice(columnIndex, 1);
     }
+
     function addColumn (column: Column) {
       columns.value.push(getNewColumn());
     }
+
     return {
       columns,
       removeColumn,
       addColumn,
       name,
-      getNewColumn
+      getNewColumn,
+      model
     };
   }
 });

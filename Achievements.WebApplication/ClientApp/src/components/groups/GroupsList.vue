@@ -7,7 +7,7 @@
       @click="createGroupDialog = true">
       <v-icon>mdi-playlist-plus</v-icon>
     </v-btn>
-    <v-expansion-panel v-for="group in groupsList"
+    <v-expansion-panel v-for="group in groupsWithTypes"
                        :key="group.id">
       <v-expansion-panel-header
         class="px-2 rounded-0"
@@ -36,7 +36,7 @@
               <v-btn icon color="red">
                 <v-icon>mdi-trash-can</v-icon>
               </v-btn>
-              <v-btn icon @click="createTypeClickHandler(group.id)">
+              <v-btn icon @click="createTypeClickHandler(group)">
                 <v-icon> mdi-playlist-plus</v-icon>
               </v-btn>
               </div>
@@ -45,7 +45,7 @@
         </div>
       </v-expansion-panel-header>
       <v-expansion-panel-content eager>
-            <v-list-item v-for="type in group.items"
+            <v-list-item v-for="type in group.types"
                          :key="type.id"
             tag="div">
               <v-list-item-title>
@@ -56,8 +56,11 @@
                 style="display: grid;
                        column-gap: 8px;
                        grid-template-columns: repeat(auto-fill, auto)">
-                <v-btn icon @click="consoleLog">
+                <v-btn icon  color="red" @click="consoleLog">
                   <v-icon> mdi-trash-can</v-icon>
+                </v-btn>
+                <v-btn icon  @click="consoleLog">
+                  <v-icon> mdi-pencil-outline</v-icon>
                 </v-btn>
               </v-list-item-action>
             </v-list-item>
@@ -65,8 +68,10 @@
     </v-expansion-panel>
   </v-expansion-panels>
     <v-dialog v-model="createTypeDialog.isShow">
-    <TypeCreateForm @click:close="createTypeDialog.isShow = false"
-    @click:create="achievementHandler">
+    <TypeCreateForm
+      :group="createTypeDialog.group"
+      @click:close="createTypeDialog.isShow = false"
+      @click:create="achievementCreateHandler">
     </TypeCreateForm>
     </v-dialog>
     <group-create-dialog
@@ -80,63 +85,52 @@
 
 import { computed, defineComponent, onMounted, ref } from '@vue/composition-api';
 import { Group, Type } from '@/api';
-import { useGroupData } from '@/components/groups/groupsComposable';
+import { GroupWithTypes, useGroupData } from '@/components/groups/groupsComposable';
 import GroupCreateDialog from '@/components/groups/GroupCreateDialog.vue';
 import TypeCreateForm from '@/components/Types/TypeCreateForm.vue';
 import { useAchievementTypeData } from '@/components/Types/AchievementTypeComposable';
 import { Column } from '@/components/Types/ColumnOfType.vue';
 
-interface Groups{
-  id: number;
-  name: string;
-  items: Type[];
-}
 interface TypeDialog {
   isShow: boolean;
   type: number | null;
-  group: number;
+  group: Group | null;
 }
 export default defineComponent({
   name: 'GroupsList',
   components: { TypeCreateForm, GroupCreateDialog },
   setup () {
-    const { createGroup, getGroups, groups } = useGroupData();
+    const { createGroup, getGroupsWithTypes, groupsWithTypes } = useGroupData();
     const { createAchievementType } = useAchievementTypeData();
     const createGroupDialog = ref<boolean>(false);
-    const createTypeDialog = ref<TypeDialog>({ isShow: false, type: null, group: 0 });
-    const groupsList = computed(() =>
-      groups.value.map(m => {
-        return {
-          id: m.id,
-          name: m.name,
-          items: [{
-            id: 1,
-            name: 'asdf'
-          }]
-        } as Groups;
-      })
-    );
-    function createTypeClickHandler (group: number, typeId?: number) {
+    const createTypeDialog = ref<TypeDialog>({ isShow: false, type: null, group: null });
+
+    function createTypeClickHandler (group: Group, typeId?: number) {
+      console.log(group);
       createTypeDialog.value.isShow = true;
       createTypeDialog.value.type = typeId ?? null;
       createTypeDialog.value.group = group;
     }
-    async function achievementHandler (event: {model: Type, columns: Column[]}) {
+
+    async function achievementCreateHandler (event: any) {
       await createAchievementType(event.model, event.columns);
     }
+
     async function groupCreateHandler (group: Group) {
       await createGroup(group);
+      createTypeDialog.value.isShow = false;
     }
-    onMounted(getGroups);
+
+    onMounted(getGroupsWithTypes);
+
     return {
       createGroup,
       groupCreateHandler,
       createGroupDialog,
-      groups,
-      groupsList,
       createTypeDialog,
       createTypeClickHandler,
-      achievementHandler
+      achievementCreateHandler,
+      groupsWithTypes
     };
   },
   methods: {

@@ -9,5 +9,6 @@ namespace Achievements.WebApplication.Services.Interfaces
         IEnumerable<AchievementGroup> GetGroups();
         AchievementGroup GetGroupById(int id);
         Task<int> CreateGroup(AchievementGroup group);
+        IEnumerable<GroupWithTypes> GetGroupsWithTypes();
     }
 }

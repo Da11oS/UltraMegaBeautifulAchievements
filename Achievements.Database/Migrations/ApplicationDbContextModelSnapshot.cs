@@ -128,6 +128,9 @@ namespace Achievements.Database.Migrations
                     b.Property<byte>("DataType")
                         .HasColumnType("tinyint");
 
+                    b.Property<string>("Label")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AchievementTypeId");

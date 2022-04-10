@@ -8,11 +8,11 @@ export interface User{
   password:string;
 }
 export interface Group {
-  id: number|null;
+  id: number;
   name: string;
 }
 export interface Type {
   id: number|null;
-  groupId: number;
   name: string;
+  achievementGroup: Group;
 }

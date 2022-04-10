@@ -27,6 +27,12 @@ namespace Achievements.WebApplication.Controllers.Achievements
         }
         
         [Authorize]
+        [HttpGet("WithTypes")]
+        public IEnumerable<GroupWithTypes> GetGroupsWithTypes()
+        {
+            return _groupsService.GetGroupsWithTypes();
+        }
+        [Authorize]
         [HttpPost("Create")]
         public async Task<int> Create(AchievementGroup group)
         {
