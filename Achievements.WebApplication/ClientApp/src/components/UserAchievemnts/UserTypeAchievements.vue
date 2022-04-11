@@ -1,13 +1,9 @@
 <template>
 <v-list>
-  <v-list-item>
-  <v-list-item-title>
-    <AchievemntsInstanceHeader >
-    </AchievemntsInstanceHeader>
-  </v-list-item-title>
+  <v-list-item v-for="instance in achievements"
+               :key="instance.id">
   <v-list-item-content>
-      <AchievementInstance>
-
+      <AchievementInstance model-value="instance">
       </AchievementInstance>
   </v-list-item-content>
   </v-list-item>
@@ -15,21 +11,25 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent, ref } from '@vue/composition-api';
 import AchievementInstance from '@/components/DataComponents/AchievementInstance.vue';
-import AchievemntsInstanceHeader from '@/components/DataComponents/AchievemntsInstanceHeader.vue';
+import { Instance } from '@/components/DataComponents/dataComposable';
 
 export default defineComponent({
   name: 'UserTypeAchievements',
-  components: { AchievemntsInstanceHeader, AchievementInstance },
+  components: { AchievementInstance },
   props: {
     typeId: Number
   },
   setup (props, { parent }) {
+    const achievements = ref<Instance[]>([]);
     if (parent) {
       console.log(parent);
-      parent.$on('click', () => console.log(props.typeId + ', ' + parent.$data.isActive));
+      parent.$once('click', () => console.log(props.typeId + ', ' + parent.$data.isActive));
     }
+    return {
+      achievements
+    };
   }
 });
 </script>
