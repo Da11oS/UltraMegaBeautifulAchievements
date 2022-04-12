@@ -9,6 +9,8 @@ namespace Achievements.Domain.Models
     {
         public Guid Identifier { get; set; }
         public string Directory { get; set; }
+        public string Extension { get; set; }
+        public string ContentType { get; set; }
         public DateTime Timestamp { get; set; }
         public User User { get; set; }
     }

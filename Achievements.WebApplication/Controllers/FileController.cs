@@ -34,5 +34,15 @@ namespace Achievements.WebApplication.Controllers
 
             return Ok();
         }
+        
+        [Authorize]
+        [HttpGet("Download")]
+        public IActionResult Load(int userId) // будет id Stored File
+        {
+            var file = _fileService.GetStoredFile(userId);
+            var filePath = $"{file.Directory}/{file.Identifier}.{file.Extension}";
+            var fileType = $"{file.ContentType}";
+            return PhysicalFile(filePath, fileType);
+        }
     }
 }

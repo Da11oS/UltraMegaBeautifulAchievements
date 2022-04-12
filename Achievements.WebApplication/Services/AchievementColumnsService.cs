@@ -6,7 +6,7 @@ using Achievements.WebApplication.Services.Interfaces;
 
 namespace Achievements.WebApplication.Services
 {
-    public class AchievementColumnService: IAchievementColumnService
+    public class AchievementColumnService : IAchievementColumnService
     {
         private readonly IAchievementColumnRepository _columnRepository;
 

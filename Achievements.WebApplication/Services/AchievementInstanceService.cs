@@ -6,7 +6,7 @@ using Achievements.WebApplication.Services.Interfaces;
 
 namespace Achievements.WebApplication.Services
 {
-    public class AchievementInstanceService: IAchievementInstanceService
+    public class AchievementInstanceService : IAchievementInstanceService
     {
         private readonly IAchievementInstanceRepository _achievementRepository;
 

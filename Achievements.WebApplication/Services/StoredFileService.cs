@@ -26,8 +26,10 @@ namespace Achievements.WebApplication.Services
             try
             {
                 var fileIdentifier = Guid.NewGuid();
-                await StoreFileOnPhysicalSpace(file, fileIdentifier);
-                await AddStoredFile(fileIdentifier, user);
+                var fileExtension = file.FileName.Split('.').Last();
+                
+                await StoreFileOnPhysicalSpace(file, fileIdentifier, fileExtension);
+                await AddStoredFile(user, fileIdentifier, fileExtension, file);
                 return true;
             }
             catch (Exception ex)
@@ -37,15 +39,9 @@ namespace Achievements.WebApplication.Services
             }
         }
 
-        public Task<StoredFile> GetFile()
-        {
-            throw new NotImplementedException();
-        }
-        
-        private async Task StoreFileOnPhysicalSpace(IFormFile file, Guid fileIdentifier)
+        private async Task StoreFileOnPhysicalSpace(IFormFile file, Guid fileIdentifier, string fileExtension)
         {
             var size = file.Length;
-            var fileExtension = file.FileName.Split('.').Last();
 
             if (size is <= 0 or > 2097152) return;
             
@@ -56,17 +52,24 @@ namespace Achievements.WebApplication.Services
             await file.CopyToAsync(stream);
         }
 
-        private async Task AddStoredFile(Guid fileIdentifier, User user)
+        private async Task AddStoredFile(User user, Guid fileIdentifier, string fileExtension, IFormFile file)
         {
             var storedFile = new StoredFile
             {
                 Identifier = fileIdentifier,
                 Directory = _configuration["StoredFilesPath"],
+                Extension = fileExtension,
+                ContentType = file.ContentType,
                 Timestamp = DateTime.Now,
                 User = user
             };
             
             var addedUser = await _fileRepository.Create(storedFile);
+        }
+
+        public StoredFile GetStoredFile(int id)
+        {
+            return _fileRepository.GetAll().FirstOrDefault(x => x.User.Id == id);
         }
     }
 }

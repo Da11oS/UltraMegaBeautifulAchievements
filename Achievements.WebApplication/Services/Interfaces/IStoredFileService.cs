@@ -8,6 +8,6 @@ namespace Achievements.WebApplication.Services.Interfaces
     {
         public Task<bool> DoStoreFile(IFormFile file, User user);
         
-        public Task<StoredFile> GetFile();
+        public StoredFile GetStoredFile(int id);
     }
 }
