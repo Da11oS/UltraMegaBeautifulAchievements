@@ -1,4 +1,5 @@
 using Achievements.Database;
+using Achievements.Domain.Models.Achievements;
 using Achievements.WebApplication.Repositories;
 using Achievements.WebApplication.Repositories.AchievementTypes;
 using Achievements.WebApplication.Services;
@@ -36,11 +37,14 @@ namespace Achievements.WebApplication
 
             services.AddScoped(typeof(IEfRepository<>), typeof(BaseRepository<>));
             services.AddScoped(typeof(IAchievementTypesRepository), typeof(AchievementTypesRepository));
+            services.AddScoped(typeof(IAchievementColumnRepository), typeof(AchievementColumnRepository));
+            services.AddScoped(typeof(IAchievementInstanceRepository), typeof(AchievementInstanceRepository));
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IStoredFileService, StoredFileService>();
             services.AddScoped<IAchievementGroupsService, AchievementGroupsService>();
             services.AddScoped<IAchievementTypesService, AchievementTypesService>();
-            
+            services.AddScoped<IAchievementInstanceService, AchievementInstanceService>();
+            services.AddScoped<IAchievementColumnService, AchievementColumnService>();
             #endregion
             
             services.AddSpaStaticFiles(configuration =>
