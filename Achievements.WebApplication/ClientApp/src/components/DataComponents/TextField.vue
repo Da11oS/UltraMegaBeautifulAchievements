@@ -1,10 +1,20 @@
 <template>
-<v-text-field ref="fileField">
+<v-text-field ref="fileField"  :label="modelValue.column.label" outlined v-model="instanceValue">
 </v-text-field>
 </template>
 
 <script lang="ts">
-import { defineComponent, inject, onMounted, onUnmounted, PropType, ref } from '@vue/composition-api';
+import {
+  computed,
+  defineComponent,
+  inject,
+  onMounted,
+  onUnmounted,
+  PropType,
+  ref,
+  toRef,
+  watch
+} from '@vue/composition-api';
 import { InstanceValue } from '@/components/DataComponents/dataComposable';
 import {
   AchievementInstanceProvide,
@@ -18,25 +28,24 @@ export default defineComponent({
   props: {
     modelValue: { type: Object as PropType<InstanceValue> }
   },
-  setup () {
-    function save () {
-      axios.post('File/Load');
-    }
-    const saveBusComponent = ref<SaveBusComponent>({
-      save: save
+  setup (props, { emit }) {
+    const modelValue = toRef(props, 'modelValue');
+    const instanceValue = computed({
+      get (): string | undefined {
+        return props.modelValue?.value ?? undefined;
+      },
+      set (value: string | undefined) {
+        if (modelValue.value) {
+          modelValue.value.value = value ?? null;
+        }
+      }
     });
-
-    const busComponent = inject(provideAchievementInstance) as AchievementInstanceProvide;
-    const fileField = ref();
-
-    onMounted(() => {
-      console.log(fileField);
-      busComponent.register(saveBusComponent.value);
+    watch(modelValue, (value) => {
+      emit('update:modelValue', value);
     });
-
-    onUnmounted(() => {
-      busComponent.unRegister(saveBusComponent.value);
-    });
+    return {
+      instanceValue
+    };
   }
 });
 </script>

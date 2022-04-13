@@ -18,5 +18,23 @@ namespace Achievements.WebApplication.Repositories.AchievementTypes
             return Context.AchievementInstances
                 .Where(f => f.AchievementType.Id == typeId && f.User.Id == userId).AsEnumerable();
         }
+        public AchievementInstance GetEmptyInstance(int typeId)
+        {
+            var achievementType = Context.AchievementTypes.FirstOrDefault(f => f.Id == typeId);
+            
+            var instance = new AchievementInstance
+            {
+                AchievementType = achievementType,
+            };
+            
+            var values = Context.Columns.Where(w => w.AchievementType.Id == achievementType.Id).Select(s => new AchievementValue()
+            {
+                Column = s,
+                AchievementInstance = instance,
+            });
+            
+            instance.Values = values.ToList();
+            return instance;
+        }
     }
 }

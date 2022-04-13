@@ -20,7 +20,7 @@ interface ColumnType {
 
 export interface InstanceValue {
   id: number;
-  value: string;
+  value: string | null;
   column: Column;
 }
 

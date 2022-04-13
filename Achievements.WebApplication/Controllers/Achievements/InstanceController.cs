@@ -37,7 +37,12 @@ namespace Achievements.WebApplication.Controllers.Achievements
         {
             return _instanceService.GetForType(typeId, userId);
         }
-
+        [Authorize]
+        [HttpGet("Empty/{typeId:int?}")]
+        public AchievementInstance GetEmptyInstance(int typeId)
+        {
+            return _instanceService.GetEmptyInstance(typeId);
+        }
         [Authorize]
         [HttpPost]
         public Task<int> Create(AchievementInstance instance)

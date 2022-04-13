@@ -7,5 +7,6 @@ namespace Achievements.WebApplication.Repositories.AchievementTypes
     public interface IAchievementInstanceRepository : IEfRepository<AchievementInstance>
     {
         IEnumerable<AchievementInstance> GetForType(int typeId, int userId);
+        AchievementInstance GetEmptyInstance(int typeId);
     }
 }

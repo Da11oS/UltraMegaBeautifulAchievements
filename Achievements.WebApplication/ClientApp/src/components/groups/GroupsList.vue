@@ -114,6 +114,7 @@ export default defineComponent({
 
     async function achievementCreateHandler (event: any) {
       await createAchievementType(event.model, event.columns);
+      await getGroupsWithTypes();
     }
 
     async function groupCreateHandler (group: Group) {

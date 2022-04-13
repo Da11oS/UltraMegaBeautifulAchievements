@@ -1,16 +1,29 @@
 <template>
-  <v-row>
-    <v-col v-for="(value,index) in valueModels" :key="value.id" cols="auto">
-      <component :is="columnTypes[value.column.dataType].component" v-model="valueModels[index]" >
+  <v-container>
+    <v-row style="border-bottom: solid gray 1px;">
+    <v-col dense>
+    <v-col dense v-for="(value, index) in valueModels"
+           :key="value.id"
+           cols="auto">
+      <component :is="columnTypes.find(f => f.dataType === value.column.dataType).component" :modelValue="valueModels[index]" >
       </component>
     </v-col>
-  </v-row>
+
+    </v-col>
+    <v-col class=" d-flex align-center">
+      <v-btn @click="saveAll">
+        Сохранить
+      </v-btn>
+    </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script lang="ts">
 import { useAchievementTypeData } from '@/components/Types/AchievementTypeComposable';
 import { computed, defineComponent, PropType, provide, ref, toRef, watch } from '@vue/composition-api';
 import { columnTypes, Instance, InstanceValue } from './dataComposable';
+import axios from 'axios';
 
 export interface SaveBusComponent {
   save() : any;
@@ -49,21 +62,24 @@ export default defineComponent({
     }
 
     function saveAll () {
+      // if ((modelValue.value?.id ?? 0) === 0) {
+      axios.post('Instances', modelValue.value);
+      // }
       busComponents.value.forEach(f => f.save());
     }
-
     provide(provideAchievementInstance, {
       register: registerSaveBusComponent,
       unRegister: unregisterSaveBusComponent
     } as AchievementInstanceProvide);
 
     watch(modelValue, (val?: Instance) => {
-      emit('update:modelValue', val);
+      emit('update:modelValue', val as Instance);
     });
 
     return {
       valueModels,
-      columnTypes
+      columnTypes,
+      saveAll
     };
   }
 });

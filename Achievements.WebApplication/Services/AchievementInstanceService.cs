@@ -24,7 +24,12 @@ namespace Achievements.WebApplication.Services
         {
             return _achievementRepository.GetById(id);
         }
-
+        
+        public AchievementInstance GetEmptyInstance(int typeId)
+        {
+            return _achievementRepository.GetEmptyInstance(typeId);
+        }
+        
         public IEnumerable<AchievementInstance> GetForType(int typeId, int userId)
         {
             return _achievementRepository.GetForType(typeId, userId);

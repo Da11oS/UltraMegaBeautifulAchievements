@@ -25,13 +25,6 @@
 
             </UserTypeAchievements>
           </v-list-group>
-          <v-list-item-action style="position: absolute; top: 0px; right: 15px;">
-            <v-btn icon>
-              <v-icon>
-                mdi-tag-plus-outline
-              </v-icon>
-            </v-btn>
-          </v-list-item-action>
         </v-list-item>
       </v-list>
     </v-list-group>
@@ -53,8 +46,8 @@ export default defineComponent({
     onMounted(getGroupsWithTypes);
     function showTypeHandler (type: Type) {
       emit('showType', type);
-      console.log('type from parent ' + type.id);
     }
+
     return {
       groupsWithTypes,
       showTypeHandler
