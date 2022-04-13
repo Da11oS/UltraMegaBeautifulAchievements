@@ -67,9 +67,10 @@ namespace Achievements.WebApplication.Services
             var addedUser = await _fileRepository.Create(storedFile);
         }
 
-        public StoredFile GetStoredFile(int id)
+        public StoredFile GetStoredFile(User user)
         {
-            return _fileRepository.GetAll().FirstOrDefault(x => x.User.Id == id);
+            // пока чето не так
+            return _fileRepository.GetAll().FirstOrDefault(x => x.User.Id == user.Id);
         }
     }
 }

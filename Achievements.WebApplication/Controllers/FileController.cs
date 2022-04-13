@@ -11,19 +11,17 @@ namespace Achievements.WebApplication.Controllers
     public class FileController : ControllerBase
     {
         private readonly IStoredFileService _fileService;
-        private readonly IUserService _userService;
 
-        public FileController(IStoredFileService fileService, IUserService userService)
+        public FileController(IStoredFileService fileService)
         {
             _fileService = fileService;
-            _userService = userService;
         }
         
         [Authorize]
         [HttpPost("Load")]
-        public IActionResult Load(IFormFile file, [FromForm]int id)
+        public IActionResult Load(IFormFile file)
         {
-            var user = _userService.GetById(id);
+            var user = (User)HttpContext.Items["User"];
 
             if (user == null) return BadRequest(new { message = "User not found" });
             
@@ -37,9 +35,14 @@ namespace Achievements.WebApplication.Controllers
         
         [Authorize]
         [HttpGet("Download")]
-        public IActionResult Load(int userId) // будет id Stored File
+        public IActionResult Download() // будет id Stored File
         {
-            var file = _fileService.GetStoredFile(userId);
+            var user = (User)HttpContext.Items["User"];
+            var file = _fileService.GetStoredFile(user);
+            
+            if (file == null)
+                return BadRequest(new { message = $"Files did not found" });
+            
             var filePath = $"{file.Directory}/{file.Identifier}.{file.Extension}";
             var fileType = $"{file.ContentType}";
             return PhysicalFile(filePath, fileType);
