@@ -50,6 +50,9 @@ namespace Achievements.WebApplication.Services
             var filePath = Path.Combine(_configuration["StoredFilesPath"], 
                 fileIdentifier.ToString()) + '.' + fileExtension;
 
+            if(!Directory.Exists(_configuration["StoredFilesPath"]))
+                Directory.CreateDirectory(_configuration["StoredFilesPath"]);
+
             await using var stream = new FileStream(filePath, FileMode.Create);
             await file.CopyToAsync(stream);
         }
