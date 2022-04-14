@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Achievements.Database.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220414183102_user role default = 1")]
+    [Migration("20220414184028_user role default = 1")]
     partial class userroledefault1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -195,7 +195,9 @@ namespace Achievements.Database.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<byte>("Role")
-                        .HasColumnType("tinyint");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("tinyint")
+                        .HasDefaultValue((byte)1);
 
                     b.Property<string>("Username")
                         .HasColumnType("nvarchar(450)");

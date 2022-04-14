@@ -193,7 +193,9 @@ namespace Achievements.Database.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<byte>("Role")
-                        .HasColumnType("tinyint");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("tinyint")
+                        .HasDefaultValue((byte)1);
 
                     b.Property<string>("Username")
                         .HasColumnType("nvarchar(450)");

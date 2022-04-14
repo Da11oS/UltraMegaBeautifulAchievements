@@ -29,7 +29,7 @@ namespace Achievements.Database
             
             modelBuilder.Entity<User>()
                 .Property(u => u.Role)
-                .HasDefaultValue(1);
+                .HasDefaultValue(UserRole.User);
         }
 
         // Уставновка ef tool'а
