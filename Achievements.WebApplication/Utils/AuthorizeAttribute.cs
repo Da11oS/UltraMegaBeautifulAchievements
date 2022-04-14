@@ -12,6 +12,8 @@ namespace Achievements.WebApplication.Utils
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class AuthorizeAttribute: Attribute, IAuthorizationFilter
     {
+        public int Role { get; set; }
+        
         public void OnAuthorization(AuthorizationFilterContext context)
         {
             var user = (User)context.HttpContext.Items["User"];
@@ -19,6 +21,11 @@ namespace Achievements.WebApplication.Utils
             {
                 // not logged in
                 context.Result = new JsonResult(new { message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized };
+            }
+            else if (Role != 0 && user.Role != (UserRole)Role)
+            {
+                // didnt matched with set role
+                context.Result = new JsonResult(new { message = "Forbidden. No access for this user" }) { StatusCode = StatusCodes.Status401Unauthorized };
             }
         }
     }
