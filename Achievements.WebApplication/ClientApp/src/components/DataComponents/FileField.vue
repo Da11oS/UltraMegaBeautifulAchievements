@@ -24,12 +24,11 @@ export default defineComponent({
     const input = ref<any>();
     function save () {
       console.log('save');
-      console.log(file.value);
-      axios.post('File/Load', file.value, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      });
+      console.log(file);
+      console.log();
+      const formData = new FormData();
+      formData.append('file', file.value);
+      axios.post('File/Load', formData);
     }
 
     const saveBusComponent = ref<SaveBusComponent>({

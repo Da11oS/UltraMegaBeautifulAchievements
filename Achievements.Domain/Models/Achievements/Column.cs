@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 namespace Achievements.Domain.Models.Achievements
 {
@@ -10,6 +11,7 @@ namespace Achievements.Domain.Models.Achievements
         public DataType DataType { get; set; }
         public string Label { get; set; }
         public AchievementType AchievementType { get; set; }
+        public List<AchievementValue> Values { get; set; }
     }
 
 }

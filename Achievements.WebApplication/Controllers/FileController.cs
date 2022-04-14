@@ -20,13 +20,13 @@ namespace Achievements.WebApplication.Controllers
         
         [Authorize]
         [HttpPost("Load")]
-        public IActionResult Load(IFormFile file)
+        public async Task<IActionResult> Load(IFormFile file)
         {
             var user = (User)HttpContext.Items["User"];
 
             if (user == null) return BadRequest(new { message = "User not found" });
             
-            var response = _fileService.DoStoreFile(file, user);
+            var response = await _fileService.DoStoreFile(file, user);
 
             if (response == null)
                 return BadRequest(new { message = "Failed to load file" });

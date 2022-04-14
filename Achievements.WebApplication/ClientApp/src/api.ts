@@ -6,6 +6,11 @@ export interface User{
   userName:string;
   email:string;
   password:string;
+  role: number;
+}
+export enum UserRole {
+  User = 1,
+  Admin = 2
 }
 export interface Group {
   id: number;

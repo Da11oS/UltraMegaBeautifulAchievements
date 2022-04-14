@@ -8,5 +8,6 @@ namespace Achievements.WebApplication.Repositories.AchievementTypes
     {
         IEnumerable<AchievementInstance> GetForType(int typeId, int userId);
         AchievementInstance GetEmptyInstance(int typeId);
+        Task<int> CreateWithNewColumns(AchievementInstance instance);
     }
 }

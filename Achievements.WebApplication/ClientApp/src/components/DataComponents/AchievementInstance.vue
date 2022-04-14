@@ -21,7 +21,7 @@
 
 <script lang="ts">
 import { useAchievementTypeData } from '@/components/Types/AchievementTypeComposable';
-import { computed, defineComponent, PropType, provide, ref, toRef, watch } from '@vue/composition-api';
+import { computed, defineComponent, inject, PropType, provide, ref, toRef, watch } from '@vue/composition-api';
 import { columnTypes, Instance, InstanceValue } from './dataComposable';
 import axios from 'axios';
 
@@ -50,6 +50,7 @@ export default defineComponent({
     const valueModels = computed((): InstanceValue[] => {
       return modelValue?.value?.values ?? [];
     });
+    const userId = inject<number>('userId');
     const busComponents = ref<Set<SaveBusComponent>>(new Set());
     const { getColumns } = useAchievementTypeData();
 
@@ -61,9 +62,11 @@ export default defineComponent({
       busComponents.value.delete(form);
     }
 
-    function saveAll () {
+    async function saveAll () {
       // if ((modelValue.value?.id ?? 0) === 0) {
-      axios.post('Instances', modelValue.value);
+      const user = await axios.get('Users/' + userId);
+      if (modelValue.value)modelValue.value.user = user.data;
+      await axios.post('Instances', modelValue.value);
       // }
       busComponents.value.forEach(f => f.save());
     }
@@ -72,7 +75,7 @@ export default defineComponent({
       unRegister: unregisterSaveBusComponent
     } as AchievementInstanceProvide);
 
-    watch(modelValue, (val?: Instance) => {
+    watch(modelValue, async (val?: Instance) => {
       emit('update:modelValue', val as Instance);
     });
 

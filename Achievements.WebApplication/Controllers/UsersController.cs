@@ -49,5 +49,12 @@ namespace Achievements.WebApplication.Controllers
             var users = _userService.GetAll();
             return Ok(users);
         }
+        [Authorize]
+        [HttpGet("{id:int?}")]
+        public IActionResult Get(int id)
+        {
+            var users = _userService.GetById(id);
+            return Ok(users);
+        }
     }
 }

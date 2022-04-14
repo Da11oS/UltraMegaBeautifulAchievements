@@ -39,5 +39,10 @@ namespace Achievements.WebApplication.Services
         {
             return _achievementRepository.Create(instance);
         }
+
+        public Task<int> CreateWithNewColumns(AchievementInstance instance)
+        {
+            return _achievementRepository.CreateWithNewColumns(instance);
+        }
     }
 }

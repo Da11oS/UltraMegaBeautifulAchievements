@@ -36,6 +36,7 @@
 
 import axios from 'axios';
 import { defineComponent } from '@vue/composition-api';
+import { UserRole } from '@/api';
 
 export default defineComponent({
   name: 'LoginForm',
@@ -61,14 +62,17 @@ export default defineComponent({
           localStorage.setItem('userId', response.data.id);
         }
 
-        // await this.$router.push({
-        //   name: 'admin-page'
-        // });
-
-        await this.$router.push({
-          name: 'user-page',
-          params: { userId: response.data.id }
-        });
+        if (response.data.role === UserRole.Admin) {
+          await this.$router.push({
+            name: 'admin-page'
+          });
+        } else if (response.data.role === UserRole.User) {
+          const userId = response.data.id as string;
+          await this.$router.push({
+            name: 'user-page',
+            params: { userId: userId }
+          });
+        }
       } catch (ex) {
         console.error(ex);
       }

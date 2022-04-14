@@ -4,14 +4,16 @@ using Achievements.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Achievements.Database.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220410110528_updateColumns")]
+    partial class updateColumns
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -145,13 +147,7 @@ namespace Achievements.Database.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ContentType")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Directory")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Extension")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("Identifier")
@@ -193,9 +189,7 @@ namespace Achievements.Database.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<byte>("Role")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("tinyint")
-                        .HasDefaultValue((byte)1);
+                        .HasColumnType("tinyint");
 
                     b.Property<string>("Username")
                         .HasColumnType("nvarchar(450)");
@@ -233,7 +227,7 @@ namespace Achievements.Database.Migrations
             modelBuilder.Entity("Achievements.Domain.Models.Achievements.AchievementType", b =>
                 {
                     b.HasOne("Achievements.Domain.Models.Achievements.AchievementGroup", "AchievementGroup")
-                        .WithMany("Types")
+                        .WithMany()
                         .HasForeignKey("AchievementGroupId");
 
                     b.Navigation("AchievementGroup");
@@ -242,11 +236,11 @@ namespace Achievements.Database.Migrations
             modelBuilder.Entity("Achievements.Domain.Models.Achievements.AchievementValue", b =>
                 {
                     b.HasOne("Achievements.Domain.Models.Achievements.AchievementInstance", "AchievementInstance")
-                        .WithMany("Values")
+                        .WithMany()
                         .HasForeignKey("AchievementInstanceId");
 
                     b.HasOne("Achievements.Domain.Models.Achievements.Column", "Column")
-                        .WithMany("Values")
+                        .WithMany()
                         .HasForeignKey("ColumnId");
 
                     b.Navigation("AchievementInstance");
@@ -257,7 +251,7 @@ namespace Achievements.Database.Migrations
             modelBuilder.Entity("Achievements.Domain.Models.Achievements.Column", b =>
                 {
                     b.HasOne("Achievements.Domain.Models.Achievements.AchievementType", "AchievementType")
-                        .WithMany("Columns")
+                        .WithMany()
                         .HasForeignKey("AchievementTypeId");
 
                     b.Navigation("AchievementType");
@@ -270,26 +264,6 @@ namespace Achievements.Database.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Achievements.Domain.Models.Achievements.AchievementGroup", b =>
-                {
-                    b.Navigation("Types");
-                });
-
-            modelBuilder.Entity("Achievements.Domain.Models.Achievements.AchievementInstance", b =>
-                {
-                    b.Navigation("Values");
-                });
-
-            modelBuilder.Entity("Achievements.Domain.Models.Achievements.AchievementType", b =>
-                {
-                    b.Navigation("Columns");
-                });
-
-            modelBuilder.Entity("Achievements.Domain.Models.Achievements.Column", b =>
-                {
-                    b.Navigation("Values");
                 });
 #pragma warning restore 612, 618
         }

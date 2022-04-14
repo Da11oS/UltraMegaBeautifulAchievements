@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Achievements.Database;
 using Achievements.Domain;
 using Achievements.Domain.Models;
 using Achievements.WebApplication.Repositories;
@@ -16,11 +17,13 @@ namespace Achievements.WebApplication.Services
     {
         private readonly IConfiguration _configuration;
         private readonly IEfRepository<StoredFile> _fileRepository;
+        private readonly IUserService _userService;
 
-        public StoredFileService(IConfiguration configuration, IEfRepository<StoredFile> fileRepository)
+        public StoredFileService(IConfiguration configuration, IEfRepository<StoredFile> fileRepository, IUserService userService)
         {
             _configuration = configuration;
             _fileRepository = fileRepository;
+            _userService = userService;
         }
         
         public async Task<bool> DoStoreFile(IFormFile file, User user)
@@ -57,7 +60,7 @@ namespace Achievements.WebApplication.Services
             await file.CopyToAsync(stream);
         }
 
-        private async Task AddStoredFile(User user, Guid fileIdentifier, string fileExtension, IFormFile file)
+        private async Task<int> AddStoredFile(User user, Guid fileIdentifier, string fileExtension, IFormFile file)
         {
             var storedFile = new StoredFile
             {
@@ -69,7 +72,7 @@ namespace Achievements.WebApplication.Services
                 User = user
             };
             
-            await _fileRepository.Create(storedFile);
+            return await _fileRepository.Create(storedFile);
         }
 
         public async Task<FileHttpStreamDetails> GetStoredFile(User user)

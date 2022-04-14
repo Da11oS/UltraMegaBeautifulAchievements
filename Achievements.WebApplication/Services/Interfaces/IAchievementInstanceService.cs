@@ -10,6 +10,7 @@ namespace Achievements.WebApplication.Services.Interfaces
         AchievementInstance GetById(int id);
         IEnumerable<AchievementInstance> GetForType(int typeId, int userId);
         Task<int> Create(AchievementInstance instance);
+        Task<int> CreateWithNewColumns(AchievementInstance instance);
         AchievementInstance GetEmptyInstance(int typeId);
     }
 }

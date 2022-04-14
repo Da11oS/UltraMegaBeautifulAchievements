@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Achievements.Database.Migrations;
 using Achievements.Domain.Models.Achievements;
@@ -19,6 +20,7 @@ namespace Achievements.WebApplication.Controllers.Achievements
         }
 
         [Authorize]
+        [HttpGet]
         public IEnumerable<AchievementInstance> GetAllTypes()
         {
             return _instanceService.GetAllTypes();
@@ -31,8 +33,9 @@ namespace Achievements.WebApplication.Controllers.Achievements
             return _instanceService.GetById(id);
         }
         
+        
         [Authorize]
-        [HttpGet("ForType")]
+        [HttpGet("ForType/{typeId:int?}/{userId:int?}")]
         public IEnumerable<AchievementInstance> GetForType(int typeId, int userId)
         {
             return _instanceService.GetForType(typeId, userId);
@@ -47,7 +50,7 @@ namespace Achievements.WebApplication.Controllers.Achievements
         [HttpPost]
         public Task<int> Create(AchievementInstance instance)
         {
-            return _instanceService.Create(instance);
+            return _instanceService.CreateWithNewColumns(instance);
         }
         
     }

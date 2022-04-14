@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from '@vue/composition-api';
+import { defineComponent, inject, ref } from '@vue/composition-api';
 import AchievementInstance from '@/components/DataComponents/AchievementInstance.vue';
 import { Instance, InstanceValue } from '@/components/DataComponents/dataComposable';
 import axios from 'axios';
@@ -37,10 +37,19 @@ export default defineComponent({
   },
   setup (props, { parent }) {
     const achievements = ref<Instance[]>([]);
-    if (parent) {
-      console.log(parent);
-      parent.$once('click', () => console.log(props.typeId + ', ' + parent.$data.isActive));
-    }
+    const userId = inject('userId');
+
+    parent?.$on('click', async () => {
+      if (parent && parent.$data.isActive) {
+        console.log(parent.$data.isActive);
+        const data = {
+          typeId: props.typeId,
+          userId: userId
+        };
+        const response = await axios.get('Instances/ForType/' + props.typeId + '/' + userId);
+        achievements.value = response.data as Instance[];
+      }
+    });
 
     async function createNewInstanceHandler () {
       // todo
