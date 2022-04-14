@@ -22,8 +22,7 @@ namespace Achievements.WebApplication.Utils
                 Subject = new ClaimsIdentity(
                     new[]
                     {
-                        new Claim("id", user.Id.ToString()),
-                        new Claim("role", user.Role.ToString())
+                        new Claim("id", user.Id.ToString())
                     }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(
