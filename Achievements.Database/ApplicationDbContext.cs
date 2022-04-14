@@ -26,6 +26,10 @@ namespace Achievements.Database
             modelBuilder.Entity<User>()
                 .HasIndex(u => new { u.Username, u.Email })
                 .IsUnique();
+            
+            modelBuilder.Entity<User>()
+                .Property(u => u.Role)
+                .HasDefaultValue(1);
         }
 
         // Уставновка ef tool'а
