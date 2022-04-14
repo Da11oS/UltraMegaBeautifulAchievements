@@ -1,4 +1,5 @@
-﻿using Achievements.Domain.Models;
+﻿using System.Threading.Tasks;
+using Achievements.Domain.Models;
 using Achievements.WebApplication.Services.Interfaces;
 using Achievements.WebApplication.Utils;
 using Microsoft.AspNetCore.Http;
@@ -35,17 +36,15 @@ namespace Achievements.WebApplication.Controllers
         
         [Authorize]
         [HttpGet("Download")]
-        public IActionResult Download() // будет id Stored File
+        public async Task<IActionResult> Download() // будет id Stored File
         {
             var user = (User)HttpContext.Items["User"];
-            var file = _fileService.GetStoredFile(user);
+            var fileDetails = await _fileService.GetStoredFile(user);
             
-            if (file == null)
-                return BadRequest(new { message = $"Files did not found" });
+            if (fileDetails == null)
+                return BadRequest(new { message = "Failed to download file" });
             
-            var filePath = $"{file.Directory}/{file.Identifier}.{file.Extension}";
-            var fileType = $"{file.ContentType}";
-            return PhysicalFile(filePath, fileType);
+            return File(fileDetails.bytes, fileDetails.contentType, fileDetails.filePath);
         }
     }
 }

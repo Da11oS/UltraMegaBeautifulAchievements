@@ -2,10 +2,12 @@
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Achievements.Domain;
 using Achievements.Domain.Models;
 using Achievements.WebApplication.Repositories;
 using Achievements.WebApplication.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Configuration;
 
 namespace Achievements.WebApplication.Services
@@ -64,13 +66,30 @@ namespace Achievements.WebApplication.Services
                 User = user
             };
             
-            var addedUser = await _fileRepository.Create(storedFile);
+            await _fileRepository.Create(storedFile);
         }
 
-        public StoredFile GetStoredFile(User user)
+        public async Task<FileHttpStreamDetails> GetStoredFile(User user)
         {
-            // пока чето не так
-            return _fileRepository.GetAll().FirstOrDefault(x => x.User.Id == user.Id);
+            var storedFile = _fileRepository.GetAll().FirstOrDefault();
+
+            if (storedFile == null) return null;
+            
+            var filePath = Path.Combine(_configuration["StoredFilesPath"], 
+                storedFile.Identifier.ToString(), storedFile.Extension);
+            var provider = new FileExtensionContentTypeProvider();
+
+            if (!provider.TryGetContentType(filePath, out var contentType))
+                contentType = "application/octet-stream";
+
+            var bytes = await File.ReadAllBytesAsync(filePath);
+            
+            return new FileHttpStreamDetails
+            {
+                filePath = filePath,
+                contentType = contentType,
+                bytes = bytes
+            };
         }
     }
 }
